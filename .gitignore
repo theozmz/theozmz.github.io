@@ -1,3 +1,4 @@
+.vuepress/.temp
+.vuepress/.cache
+.vuepress/dist
 node_modules
-/.vuepress/*
-!/.vuepress/config.js
