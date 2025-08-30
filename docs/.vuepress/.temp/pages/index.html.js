@@ -1,3 +1,0 @@
-import comp from "D:/code/qd/theozmz.github.io/docs/.vuepress/.temp/pages/index.html.vue"
-const data = JSON.parse("{\"path\":\"/\",\"title\":\"\",\"lang\":\"en-US\",\"frontmatter\":{},\"git\":{\"updatedTime\":1756489177000,\"contributors\":[{\"name\":\"zmz\",\"username\":\"zmz\",\"email\":\"2082318160@qq.com\",\"commits\":1,\"url\":\"https://github.com/zmz\"}],\"changelog\":[{\"hash\":\"3108323313784e4b1e14fccfd87fa40fd184ff4c\",\"time\":1756489177000,\"email\":\"2082318160@qq.com\",\"author\":\"zmz\",\"message\":\"VuePress Framework\"}]},\"filePathRelative\":\"README.md\"}")
-export { comp, data }
