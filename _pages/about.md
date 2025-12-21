@@ -10,9 +10,111 @@ redirect_from:
 ## Welcome to my homepage!
 Hi! I am a Master student in the [School of Computing and Data Science](https://www.cds.hku.hk/) at [the University of Hong Kong](https://www.hku.hk/). Before that, I received my Bachelor's degree in the [School of Computing Science and Technology](https://cs.tongji.edu.cn/) at [Tongji University](https://www.tongji.edu.cn/). My research interest lies in machine learning, RAG, and inference optimization.
 
-<img src="/images/1.png" alt="" style="zoom: 25%;" />
+[CV](/cv) [Posts](/year-archive/)
 
-[CV](/cv)
+<img src="/images/home/HK0.jpg" alt="" style="width:48%;" />
+<img src="/images/home/HK1.jpg" alt="" style="width:48%;" />
+<img src="/images/home/HK2.jpg" alt="" style="width:48%;" />
+<img src="/images/home/HK3.jpg" alt="" style="width:48%;" />
+
+Fig1: A flying turle. Hong Kong, 2025.
+
+Fig2: Stanley. Hong Kong, 2025.
+
+Fig3: Central. Hong Kong, 2025.
+
+Fig4: HKU. Hong Kong, 2025.
+
+<img src="/images/home/Chengdu.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Chongqing.jpg" alt="" style="width:48%;" />
+
+Fig5: A performance on the Chunxi Road. Chengdu, Sichuan, 2025.
+
+Fig6: Liziba and Goose Hill. Chongqing, 2025.
+
+<img src="/images/home/Guangzhou.jpg" alt="" style="width:15%;" />
+<img src="/images/home/Shenzhen.jpg" alt="" style="width:48%;" />
+
+Fig7: Shipaiqiao Village. Guangzhou, Guangdong, 2025.
+
+Fig8: North Huaqiang. Shenzhen, Guangdong, 2025.
+
+<img src="/images/home/Xuzhou.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Nanchang.jpg" alt="" style="width:48%;" />
+
+Fig9: Hubushan Hill. Xuzhou, Jiangsu, 2025.
+
+Fig10: Pavilion of Prince Teng. Nanchang, Jiangxi, 2025.
+
+<img src="/images/home/Xian.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Shenyang.jpg" alt="" style="width:48%;" />
+
+Fig11: A band playing under Yongning Gate. Xi'an, Shaanxi, 2025.
+
+Fig12: Pyongyang Restaurant. Shenyang, Liaoning, 2025.
+
+<img src="/images/home/Luoyang.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Lanzhou.jpg" alt="" style="width:48%;" />
+
+Fig13: A traditional palace. Luoyang, Henan, 2025.
+
+Fig14: Danxia landform. Lanzhou, Gansu, 2025.
+
+<img src="/images/home/Macau0.jpg" alt="" style="width:32%;" />
+<img src="/images/home/Macau1.jpg" alt="" style="width:32%;" />
+<img src="/images/home/Macau2.jpg" alt="" style="width:32%;" />
+
+Fig15: Grand Lisboa. Macau, 2024.
+
+Fig16: Ruins of Saint Paul's. Macau, 2024.
+
+Fig17: A lane. Macau, 2024.
+
+<img src="/images/home/Beijing.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Cangzhou.jpg" alt="" style="width:48%;" />
+
+Fig18: The Palaca Museum, captured on the Jingshan Hill. Beijing, 2024.
+
+Fig19: A pavilion. Cangzhou, Hebei, 2024.
+
+<img src="/images/home/Wuhan.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Yixian.jpg" alt="" style="width:48%;" />
+
+Fig20: Wuhan Changjiang River Bridge. Wuhan, Hubei, 2024.
+
+Fig21: A village aged in Qing dynasty. Huangshan, Anhui, 2024.
+
+<img src="/images/home/Shanghai.jpg" alt="" style="width:48%;" />
+<img src="/images/home/Shanghai2.jpg" alt="" style="width:48%;" />
+
+Fig22: Northern Bund. Shanghai, 2024.
+
+Fig23: Yangpu Bridge. Shanghai, 2024.
+
+<img src="/images/home/Nanjing.jpg" alt="" style="width:10%;" />
+<img src="/images/home/Suzhou.jpg" alt="" style="width:43%;" />
+<img src="/images/home/Wuxi.jpg" alt="" style="width:43%;" />
+
+Fig24: Yuhuatai. Nanjing, Jiangsu, 2024.
+
+Fig25: Humble Administrator's Garden. Suzhou, Jiangsu, 2024.
+
+Fig26: Nanchang Ancient Street. Wuxi, Jiangsu, 2024.
+
+> 宇宙以其不息的欲望将一个歌舞炼为永恒。这欲望有怎样一个人间的姓名，大可忽略不计。 —— 《我与地坛》，史铁生
+
+> The cosmos, with its relentless desire, tempers a dance into eternity. The mortal name of this desire is utterly negligible. -- Me and the Altar of Earth, Shi Tiesheng
+
+<img src="/images/home/Tongji.jpg" alt="" style="" />
+
+Fig27: Classrooms at Tongji University will be closing at midnight. Shanghai, 2024.
+
+<!-- |||
+|:--:|:--:|
+|c|d| -->
+
+<!-- ![Editing a Markdown file for a talk](/images/home/HK0.jpg) -->
+
 
 <!-- This is the front page of a website that is powered by the [Academic Pages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the repository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. Incidentally, these same features make it a great template for anyone that needs to show off a professional template!
 
