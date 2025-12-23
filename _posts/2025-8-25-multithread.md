@@ -8,6 +8,9 @@ tags:
   - threadpool
 ---
 
+This is my Java multi-threading self-taught notes from bilibili. Not recommended for learning, because the information is not first-hand.
+Java多线程自学笔记，从哔哩哔哩上找的网课。不建议照这个笔记学，建议去寻找一手信息。
+
 ### Java 多线程
 
 #### 概念
