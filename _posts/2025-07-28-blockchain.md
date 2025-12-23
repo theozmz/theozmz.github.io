@@ -1,6 +1,6 @@
 ---
 title: '笔记《区块链技术与应用》公开课-北京大学肖臻'
-date: 2025-08-25
+date: 2025-07-28
 permalink: /posts/2025/07/blockchain/
 tags:
   - blockchain
