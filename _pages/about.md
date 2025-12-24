@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 ## Welcome to my homepage!
-Hi! I am a Master student in the [School of Computing and Data Science](https://www.cds.hku.hk/) at [the University of Hong Kong](https://www.hku.hk/). Before that, I received my Bachelor's degree in the [School of Computing Science and Technology](https://cs.tongji.edu.cn/) at [Tongji University](https://www.tongji.edu.cn/). My research interest lies in machine learning, RAG, and inference optimization.
+Hi! I am a Master student in the [School of Computing and Data Science](https://www.cds.hku.hk/) at [the University of Hong Kong](https://www.hku.hk/). Before that, I received my Bachelor's degree in the [School of Computer Science and Technology](https://cs.tongji.edu.cn/) at [Tongji University](https://www.tongji.edu.cn/). My research interest lies in machine learning, RAG, and inference optimization.
 
 [CV](/cv) [Posts](/year-archive/)
 
