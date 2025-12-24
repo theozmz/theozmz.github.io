@@ -73,7 +73,7 @@ Fig17: A lane. Macau, 2024.
 <img src="/images/home/Beijing.jpg" alt="" style="width:48%;" />
 <img src="/images/home/Cangzhou.jpg" alt="" style="width:48%;" />
 
-Fig18: The Palaca Museum, captured on the Jingshan Hill. Beijing, 2024.
+Fig18: The Palace Museum, captured on the Jingshan Hill. Beijing, 2024.
 
 Fig19: A pavilion. Cangzhou, Hebei, 2024.
 
