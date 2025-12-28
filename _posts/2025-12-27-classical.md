@@ -12,6 +12,7 @@ tags:
 
 # Transformers
 > The transformer model is a type of neural network architecture that excels at processing sequential data, most prominently associated with large language models (LLMs). Transformer models have also achieved elite performance in other fields of artificial intelligence (AI), such as computer vision, speech recognition and time series forecasting. [reference](https://www.ibm.com/think/topics/transformer-model)
+
 ```
 @article{vaswani2017attention,
   title={Attention is all you need},
@@ -21,10 +22,12 @@ tags:
   year={2017}
 }
 ```
+
 something
 
 # Layer Normalization
 > Layer Normalization stabilizes and accelerates the training process in deep learning. In typical neural networks, activations of each layer can vary drastically which leads to issues like exploding or vanishing gradients which slow down training. Layer Normalization addresses this by normalizing the output of each layer which helps in ensuring that the activations stay within a stable range. [reference](https://arxiv.org/abs/1607.06450)
+
 ```
 @misc{ba2016layernormalization,
       title={Layer Normalization}, 
@@ -36,6 +39,7 @@ something
       url={https://arxiv.org/abs/1607.06450}, 
 }
 ```
+
 something
 
 # Alex Net
