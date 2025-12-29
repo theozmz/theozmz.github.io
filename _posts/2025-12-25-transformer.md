@@ -102,5 +102,7 @@ Inference process:
 
 # Components
 
+## Layer Normalization
+
 
 
