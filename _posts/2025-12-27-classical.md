@@ -43,31 +43,32 @@ something
 
 深度神经网络训练过程中，每一层的输入分布都会随着前一层参数的变化而变化，往往需要较低的学习率和精细的参数初始化，从而减缓了训练速度，并且使得训练具有饱和非线性（**注**：参考[AlexNet论文](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)，这里的非线性指的是类似sigmoid和tanh这样的激活函数，饱和指的是这个函数是个有界函数，比如sigmoid上界是1下界是0；同理可知，非饱和就是类似ReLU这种没有上界的函数，因为随自变量增加函数值会一直增加）的模型变得非常困难。（**注**：样本方差较大时，容易梯度消失，直观理解就是饱和函数越往两侧延伸越平）这种现象被称为内部协变量移位（Internal Covariate Shift, ICS），BN就是来解决这个问题的。（**注**：参考[这篇论文](https://arxiv.org/abs/1805.11604)和[这篇博客](https://zhuanlan.zhihu.com/p/54171297)，有大佬证明BN与ICS无关，BN起到平滑损失平面(loss landscape)的作用，就是让原本崎岖的损失平面变得平滑）BN将归一化作为模型架构的一部分，并对mini-batch训练的每一步执行归一化。BN允许我们使用更高的学习率，并且对初始化不那么小心。它还充当正则化器，在某些情况下消除了Dropout的需要。
 
-![lossplateau](../images/posts/2025/12/classical/lossplateau.jpg)
+![lossplateau](../../../../images/posts/2025/12/classical/lossplateau.jpg)
 
 *可以理解成BN让左边变成右边[[reference]](https://zhuanlan.zhihu.com/p/54171297)*
 
-在一个d维输入的层中，输入为：
+在一个$$ d $$维输入的层中，输入为：
 $$
 x=(x^{(1)}...x^{(d)})
 $$
 随后对每一维度归一化：
 $$
-\hat{x}^{(k)}=\frac{x^{(k)}-\Epsilon{[x^{(k)}]}}{\sqrt{\mathrm{Var}[x^{(k)}]}}
+\hat{x}^{(k)}=\frac{x^{(k)}-\mathrm{E}[x^{(k)}]}{\sqrt{\mathrm{Var}[x^{(k)}]}}
 $$
-![batchnorm.drawio](../images/posts/2025/12/classical/batchnorm.drawio.png)
+
+![batchnorm.drawio](../../../../images/posts/2025/12/classical/batchnorm.drawio.png)
 
 *BN大致的样子*
 
-BN会对模型的收敛有帮助，但是也可能破坏已经学习到的特征。为了解决这个问题，BN添加了两个可以学习的变量$ \gamma $和$ \beta $用于控制网络能够表达直接映射，也就是能够还原BN之前学习到的特征。[[reference]](https://zhuanlan.zhihu.com/p/54171297)
-$$
+BN会对模型的收敛有帮助，但是也可能破坏已经学习到的特征。为了解决这个问题，BN添加了两个可以学习的变量$$ \gamma $$和$$ \beta $$用于控制网络能够表达直接映射，也就是能够还原BN之前学习到的特征,$$
 y^{(k)}=\gamma^{(k)}\hat{x}^{(k)}+\beta^{(k)}
 $$
 可以理解为一个映射：
 $$
 \mathrm{BN}_{\gamma,\beta}:x_{1...m}\to y_{1...m}
-$$
-算法：
+$$。[[reference]](https://zhuanlan.zhihu.com/p/54171297)
+
+## 算法：
 
 **Input**:
 
@@ -75,7 +76,7 @@ mini-batch样本
 $$
 \mathcal{B}=\{x_{1...m}\}
 $$
-带学习的参数$ \gamma $和$ \beta $
+, 待学习的参数$$ \gamma $$和$$ \beta $$
 
 **Output**:
 $$
@@ -102,11 +103,13 @@ $$
    y_i\leftarrow\gamma\hat{x}_i+\beta\equiv\mathrm{BN}_{\gamma,\beta}(x_i)
    $$
 
-批量归一化（Batch Normalization，BN）在反向传播中的推导基于链式法则，通过引入中间变量（均值$ μ_B $和方差$ σ_B^2 $）逐步计算梯度。整个过程由初等运算构成，且由于$ ϵ>0 $保证分母不为零，因此处处可导。
+## 链式法则推导
 
-训练过程中，损失函数$ ℓ $对输入$ x_i $和参数$ γ,β $的梯度通过链式法则计算。
+批量归一化（Batch Normalization，BN）在反向传播中的推导基于链式法则，通过引入中间变量（均值$$ \mu_{\mathcal{B}} $$和方差$$ \sigma_{\mathcal{B}}^2 $$）逐步计算梯度。整个过程由初等运算构成，且由于$$ \epsilon>0 $$保证分母不为零，因此处处可导。
 
-1. 计算L对归一化x_hat的偏导数
+训练过程中，损失函数$$ \mathcal{l} $$对输入$$ x_i $$和参数$$ \gamma, \beta $$的梯度通过链式法则计算。
+
+1. 计算$$ \mathscr{l} $$对归一化$$ \hat{x}_i $$的偏导数
 
    根据
    $$
@@ -117,60 +120,69 @@ $$
    \frac{\partial\mathscr{l}}{\partial\hat{x}_i}=\frac{\partial\mathscr{l}}{\partial y_i}\gamma
    $$
 
-2. 计算L对方差的偏导数
+2. 计算$$ \mathscr{l} $$对方差的偏导数
 
-   方差影响所有归一化值x_hat，因此有
+   方差影响所有归一化值$$ \hat{x}_i $$，因此有
    $$
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial\sigma_{\mathcal{B}}^2}}
    $$
-   计算归一化x_hat对方差的偏导数
+
+   计算归一化$$ \hat{x}_i $$对方差的偏导数
    $$
    \frac{\partial\hat{x}_i}{\partial\sigma_{\mathcal{B}}^2}=-\frac{1}{2}(x_i-\mu_{\mathcal{B}})(\sigma_{\mathcal{B}}^2+\epsilon)^{-\frac{3}{2}}
    $$
+
    带入
    $$
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}=-\frac{1}{2}\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(x_i-\mu_{\mathcal{B}})(\sigma_{\mathcal{B}}^2+\epsilon)^{-\frac{3}{2}}}
    $$
 
-3. 计算L对均值的偏导数
+3. 计算$$ \mathscr{l} $$对均值的偏导数
 
-   均值影响所有归一化x_hat和方差，因此有
+   均值影响所有归一化$$ \hat{x}_i $$和方差，因此有
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial\mu_{\mathcal{B}}}+\frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot\frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}}
    $$
-   分别求归一化x_hat对均值的偏导数和方差对均值的偏导数
+
+   分别求归一化$$ \hat{x}_i $$对均值的偏导数和方差对均值的偏导数
    $$
    \frac{\partial\hat{x}_i}{\partial\mu_{\mathcal{B}}}=-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}\\
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}=-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})}
    $$
+
    带入
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}})+\frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot(-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})})}
    $$
+
    观察发现，方差对均值求偏导数等于0，所以第二项可以删去
    $$
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}=-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})}=0
    $$
+
    化简后
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}})}
    $$
+
    （**注**：直观理解也许是这样的，在同一个分布里，均值和方差之间没有相关性。我瞎说的。。）
 
-4. 计算L对原始x_i的偏导数
+4. 计算$$ \mathscr{l} $$对原始$$ x_i $$的偏导数
 
-   输入x_i**只**影响x_hat_i，均值和方差，因此有（只对i这一个样本产生影响）
+   输入$$ x_i $$ **只**影响$$ \hat{x}_i $$，均值和方差，因此有（只对i这一个样本产生影响）
    $$
    \frac{\partial\mathscr{l}}{\partial x_i}=\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial x_i}+
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}\cdot\frac{\partial\mu_{\mathcal{B}}}{\partial x_i}+
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot\frac{\partial\sigma_{\mathcal{B}}^2}{\partial x_i}
    $$
-   分别求x_hat对x的偏导数，均值对x的偏导数和方差对x的偏导数
+
+   分别求$$ \hat{x}_i $$对x的偏导数，均值对x的偏导数和方差对x的偏导数
    $$
    \frac{\partial\hat{x}_i}{\partial x_i}=\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}\\
    \frac{\partial\mu_{\mathcal{B}}}{\partial x_i}=\frac{1}{m}\\
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial x_i}=\frac{2}{m}(x_i-\mu_{\mathcal{B}})
    $$
+
    带入
    $$
    \frac{\partial\mathscr{l}}{\partial x_i}=\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}+
@@ -178,7 +190,7 @@ $$
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot\frac{2}{m}(x_i-\mu_{\mathcal{B}})
    $$
 
-5. 计算L对$ \gamma $和$ \beta $的偏导数
+5. 计算$$ \mathscr{l} $$对$$ \gamma $$和$$ \beta $$的偏导数
 
    根据
    $$
@@ -190,16 +202,22 @@ $$
    \frac{\partial\mathscr{l}}{\partial\beta}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\frac{\partial y_i}{\partial\beta}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}}
    $$
 
+## 滑动平均
+
 在训练的时候，我们采用SGD算法可以获得该批量中样本的均值和方差。但是在测试的时候，数据都是以单个样本的形式输入到网络中的。在计算BN层的输出的时候，我们需要获取的均值和方差是通过训练集统计得到的。具体的讲，我们会从训练集中随机取多个批量的数据集，每个批量的样本数是m，测试的时候使用的均值和方差是这些批量的均值。[[reference]](https://zhuanlan.zhihu.com/p/54171297)
+
 $$
 \mathrm{E}[x]\leftarrow\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]\\
 \mathrm{Var}[x]\leftarrow\frac{m}{m-1}\mathrm{E}_{\mathcal{B}}[\sigma_{\mathcal{B}}^2]
 $$
-[[这篇博客]](https://zhuanlan.zhihu.com/p/54171297)和原论文还提到了一个叫做**滑动平均**的东西。上面的过程明显非常耗时，更多的开源框架是在训练的时候，顺便就把采样到的样本的均值和方差保留了下来。在Keras中，这个变量叫做滑动平均（moving average），对应的均值叫做滑动均值（moving mean），方差叫做滑动方差（moving variance）。它们均使用`moving_average_update`进行更新。在测试的时候则使用滑动均值和滑动方差代替上面的E[x]和Var[x]。
+
+[[这篇博客]](https://zhuanlan.zhihu.com/p/54171297)和原论文还提到了一个叫做**滑动平均**的东西。上面的过程明显非常耗时，更多的开源框架是在训练的时候，顺便就把采样到的样本的均值和方差保留了下来。在Keras中，这个变量叫做滑动平均（moving average），对应的均值叫做滑动均值（moving mean），方差叫做滑动方差（moving variance）。它们均使用`moving_average_update`进行更新。在测试的时候则使用滑动均值和滑动方差代替上面的$$\mathrm{E}[x]$$和$$\mathrm{Var}[x]$$
+
 $$
 \mathrm{E}[x]=\alpha\cdot\mathrm{E}[x]+(1-\alpha)\cdot\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]\\
 \mathrm{Var}[x]=\alpha\cdot\mathrm{Var}[x]+(1-\alpha)\cdot\mathrm{E}_{\mathcal{B}}[\sigma_{\mathcal{B}}^2]
 $$
+
 其中α是非常接近1的超参数，叫衰减率（？）或遗忘因子（？），一般设置成0.99或0.9999
 
 推理时的滑动平均：
@@ -212,9 +230,9 @@ $$
 $$
 y=\gamma\cdot\frac{x-\mathrm{E}[x]}{\sqrt{\mathrm{Var}[x]+\epsilon}}+\beta
 $$
-这里的E[x]和Var[x]都是采样后的值
+这里的$$\mathrm{E}[x]$$和$$\mathrm{Var}[x]$$都是采样后的值
 
-**总结**
+## 总结
 
 * BN在CNN里效果较好，在RNN里效果较差。原文里有写CNN，在第3.2章。
 * BN允许高学习率，在原文第3.3章中给出了推导证明。
