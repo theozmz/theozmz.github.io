@@ -104,5 +104,5 @@ Inference process:
 
 ## Layer Normalization
 
-
+详细公式推导见 [经典论文圣地巡礼之RNN](/posts/2025/12/foundation/)
 
