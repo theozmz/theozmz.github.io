@@ -73,32 +73,38 @@ $$。[[reference]](https://zhuanlan.zhihu.com/p/54171297)
 **Input**:
 
 mini-batch样本
+
 $$
 \mathcal{B}=\{x_{1...m}\}
 $$
 , 待学习的参数$$ \gamma $$和$$ \beta $$
 
 **Output**:
+
 $$
 \{y_i=\mathrm{BN}_{\gamma,\beta}(x_i)\}
 $$
 
 1. 计算mini-batch的均值mean
+
    $$
    \mu_{\mathcal{B}}\leftarrow\frac{1}{m}\sum_{i=1}^m{x_i}
    $$
 
 2. 计算mini-batch的方差variance
+
    $$
    \sigma_{\mathcal{B}}^2\leftarrow\frac{1}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})^2}
    $$
 
 3. 归一化normalize
+
    $$
    \hat{x}_i\leftarrow\frac{x_i-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}
    $$
 
 4. 缩放scale偏移shift
+
    $$
    y_i\leftarrow\gamma\hat{x}_i+\beta\equiv\mathrm{BN}_{\gamma,\beta}(x_i)
    $$
@@ -116,6 +122,7 @@ $$
    y_i=\gamma\hat{x}_i+\beta
    $$
    直接计算偏导数
+
    $$
    \frac{\partial\mathscr{l}}{\partial\hat{x}_i}=\frac{\partial\mathscr{l}}{\partial y_i}\gamma
    $$
@@ -123,16 +130,19 @@ $$
 2. 计算$$ \mathscr{l} $$对方差的偏导数
 
    方差影响所有归一化值$$ \hat{x}_i $$，因此有
+
    $$
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial\sigma_{\mathcal{B}}^2}}
    $$
 
    计算归一化$$ \hat{x}_i $$对方差的偏导数
+
    $$
    \frac{\partial\hat{x}_i}{\partial\sigma_{\mathcal{B}}^2}=-\frac{1}{2}(x_i-\mu_{\mathcal{B}})(\sigma_{\mathcal{B}}^2+\epsilon)^{-\frac{3}{2}}
    $$
 
    带入
+
    $$
    \frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}=-\frac{1}{2}\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(x_i-\mu_{\mathcal{B}})(\sigma_{\mathcal{B}}^2+\epsilon)^{-\frac{3}{2}}}
    $$
@@ -140,27 +150,35 @@ $$
 3. 计算$$ \mathscr{l} $$对均值的偏导数
 
    均值影响所有归一化$$ \hat{x}_i $$和方差，因此有
+
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial\mu_{\mathcal{B}}}+\frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot\frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}}
    $$
 
    分别求归一化$$ \hat{x}_i $$对均值的偏导数和方差对均值的偏导数
+
    $$
-   \frac{\partial\hat{x}_i}{\partial\mu_{\mathcal{B}}}=-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}\\
+   \frac{\partial\hat{x}_i}{\partial\mu_{\mathcal{B}}}=-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}
+   $$
+
+   $$
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}=-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})}
    $$
 
    带入
+
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}})+\frac{\partial\mathscr{l}}{\partial\sigma_{\mathcal{B}}^2}\cdot(-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})})}
    $$
 
    观察发现，方差对均值求偏导数等于0，所以第二项可以删去
+
    $$
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial\mu_{\mathcal{B}}}=-\frac{2}{m}\sum_{i=1}^m{(x_i-\mu_{\mathcal{B}})}=0
    $$
 
    化简后
+
    $$
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot(-\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}})}
    $$
@@ -170,6 +188,7 @@ $$
 4. 计算$$ \mathscr{l} $$对原始$$ x_i $$的偏导数
 
    输入$$ x_i $$ **只**影响$$ \hat{x}_i $$，均值和方差，因此有（只对i这一个样本产生影响）
+
    $$
    \frac{\partial\mathscr{l}}{\partial x_i}=\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{\partial\hat{x}_i}{\partial x_i}+
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}\cdot\frac{\partial\mu_{\mathcal{B}}}{\partial x_i}+
@@ -177,13 +196,21 @@ $$
    $$
 
    分别求$$ \hat{x}_i $$对x的偏导数，均值对x的偏导数和方差对x的偏导数
+
    $$
-   \frac{\partial\hat{x}_i}{\partial x_i}=\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}\\
-   \frac{\partial\mu_{\mathcal{B}}}{\partial x_i}=\frac{1}{m}\\
+   \frac{\partial\hat{x}_i}{\partial x_i}=\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}
+   $$
+
+   $$
+   \frac{\partial\mu_{\mathcal{B}}}{\partial x_i}=\frac{1}{m}
+   $$
+
+   $$
    \frac{\partial\sigma_{\mathcal{B}}^2}{\partial x_i}=\frac{2}{m}(x_i-\mu_{\mathcal{B}})
    $$
 
    带入
+
    $$
    \frac{\partial\mathscr{l}}{\partial x_i}=\frac{\partial\mathscr{l}}{\partial\hat{x}_i}\cdot\frac{1}{\sqrt{\sigma_{\mathcal{B}}^2+\epsilon}}+
    \frac{\partial\mathscr{l}}{\partial\mu_{\mathcal{B}}}\cdot\frac{1}{m}+
@@ -197,8 +224,12 @@ $$
    y_i=\gamma\hat{x}_i+\beta
    $$
    直接计算偏导数
+
    $$
-   \frac{\partial\mathscr{l}}{\partial\gamma}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\frac{\partial y_i}{\partial\gamma}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\hat{x}_i}\\
+   \frac{\partial\mathscr{l}}{\partial\gamma}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\frac{\partial y_i}{\partial\gamma}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\hat{x}_i}
+   $$
+
+   $$
    \frac{\partial\mathscr{l}}{\partial\beta}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}\cdot\frac{\partial y_i}{\partial\beta}}=\sum_{i=1}^m{\frac{\partial\mathscr{l}}{\partial y_i}}
    $$
 
@@ -207,14 +238,20 @@ $$
 在训练的时候，我们采用SGD算法可以获得该批量中样本的均值和方差。但是在测试的时候，数据都是以单个样本的形式输入到网络中的。在计算BN层的输出的时候，我们需要获取的均值和方差是通过训练集统计得到的。具体的讲，我们会从训练集中随机取多个批量的数据集，每个批量的样本数是m，测试的时候使用的均值和方差是这些批量的均值。[[reference]](https://zhuanlan.zhihu.com/p/54171297)
 
 $$
-\mathrm{E}[x]\leftarrow\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]\\
+\mathrm{E}[x]\leftarrow\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]
+$$
+
+$$
 \mathrm{Var}[x]\leftarrow\frac{m}{m-1}\mathrm{E}_{\mathcal{B}}[\sigma_{\mathcal{B}}^2]
 $$
 
 [[这篇博客]](https://zhuanlan.zhihu.com/p/54171297)和原论文还提到了一个叫做**滑动平均**的东西。上面的过程明显非常耗时，更多的开源框架是在训练的时候，顺便就把采样到的样本的均值和方差保留了下来。在Keras中，这个变量叫做滑动平均（moving average），对应的均值叫做滑动均值（moving mean），方差叫做滑动方差（moving variance）。它们均使用`moving_average_update`进行更新。在测试的时候则使用滑动均值和滑动方差代替上面的$$\mathrm{E}[x]$$和$$\mathrm{Var}[x]$$
 
 $$
-\mathrm{E}[x]=\alpha\cdot\mathrm{E}[x]+(1-\alpha)\cdot\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]\\
+\mathrm{E}[x]=\alpha\cdot\mathrm{E}[x]+(1-\alpha)\cdot\mathrm{E}_{\mathcal{B}}[\mu_{\mathcal{B}}]
+$$
+
+$$
 \mathrm{Var}[x]=\alpha\cdot\mathrm{Var}[x]+(1-\alpha)\cdot\mathrm{E}_{\mathcal{B}}[\sigma_{\mathcal{B}}^2]
 $$
 
@@ -259,10 +296,10 @@ $$
 在Layer Norm之前的是Batch Norm[[1](https://arxiv.org/abs/1502.03167)] [[2]()] [[3]()]
 
 
+# Residual Network
 
 # Alex Net
 
-# Residual Network
 
 
 
