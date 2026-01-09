@@ -293,13 +293,43 @@ $$
 }
 ```
 
-在Layer Norm之前的是Batch Norm[[1](https://arxiv.org/abs/1502.03167)] [[2]()] [[3]()]
+参考 [[博客](https://zhuanlan.zhihu.com/p/54530247)]
+
+在Layer Norm之前的是Batch Norm [[1](https://arxiv.org/abs/1502.03167)] 。BN的限制是：
+
+1. 某一层的输出变化往往会导致下一层输入总和的高度相关变化，尤其是对于输出变化较大的ReLU单元。**用LN**：通过固定每层输入总和的均值和方差，可以减少“协变量偏移”问题。
+
+2. 在**LN**下，同一层中的所有隐藏单元共享相同的归一化参数$$\mu$$和$$\sigma$$，但不同的训练样本具有不同的归一化参数。与**BN**不同，**LN**不对mini-batch的大小施加任何限制，并且可以在batch大小为1的纯在线模式下使用。
+
+示意图：
+
+![LayerNormalization](../../../../images/posts/2025/12/classical/ln.png)
+
+在FFN中，第$$\mathscr{l}$$层神经元输入总和的向量表示为$$a_i^l={w_i^l}^Th^l$$
+
+$$h_i^{l+1}=f(a_i^l+b_i^l)$$
+
+其中，$$f(\cdot)$$是element-wise非线性激活函数，如ReLU，$$w_i^l$$是第l层第i个神经元的权重向量，$$b_i^l$$是第l层第i个神经元的偏置向量。神经网络中的参数是使用基于梯度的优化算法来学习的，而梯度是通过反向传播来计算的。
+
+计算均值和方差：
+
+$$\mu^l=\frac{1}{H}\sum_{i=1}^H{a_i^l}$$
+
+$$\sigma^l=\sqrt{\frac{1}{H}\sum_{i=1}^H{(a_i^l-\mu^l)^2}}$$
+
+其中，H表示第l层中的隐藏单元个数。
+
+## RNN
+
+在RNN中，F表示隐藏层维度hidden dimension或嵌入维度emmbedding dimension，N表示批量大小batch size，C表示序列长度sequence length。
+
+（待填：RNN下LN公式，RNN适合LN不适合BN的原因，CNN适合BN不适合LN的原因）
 
 
 # Residual Network
 
 # Alex Net
 
-
+# RNN
 
 
