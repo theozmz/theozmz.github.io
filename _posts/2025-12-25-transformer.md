@@ -106,3 +106,54 @@ Inference process:
 
 详细公式推导见 [经典论文圣地巡礼之RNN](/posts/2025/12/foundation/)
 
+代码：
+
+```python
+
+```
+
+
+## Positional Encoding
+
+### Rotary Position Embedding (RoPE)
+
+[论文](https://arxiv.org/abs/2104.09864)
+
+代码：
+
+```python
+
+```
+
+
+
+## Attention
+
+### Scaled Dot-Product Attention
+
+公式：
+
+
+$$
+   \mathrm{Attention}(Q, K, V) = \mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+$$
+
+代码：
+
+```python
+def attention(query, key, value, mask=None, dropout=None):
+   d_k = = query.size(-1)
+   scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
+   if mask is not None:
+      scores = scores.masked_fill(mask == 0, -1e9)
+   p_attn = scores.softmax(dim=-1)
+   if dropout is not None:
+      p_attn = dropout(p_attn)
+   return torch.matmul(p_attn, value)
+```
+
+
+
+
+### Multi-Head Attention
+
