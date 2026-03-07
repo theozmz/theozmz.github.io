@@ -1,16 +1,40 @@
 ---
 permalink: /
-title: "Bonjour!"
+title: "Welcome to my homepage!"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
 
-## Welcome to my homepage!
-Hi! I am a Master student in the [School of Computing and Data Science](https://www.cds.hku.hk/) at [the University of Hong Kong](https://www.hku.hk/). Before that, I received my Bachelor's degree in the [School of Computer Science and Technology](https://cs.tongji.edu.cn/) at [Tongji University](https://www.tongji.edu.cn/). My research interest lies in machine learning, RAG, and inference optimization.
+Hi!👋👋👋 I am a Master student in the [School of Computing and Data Science](https://www.cds.hku.hk/) at [the University of Hong Kong](https://www.hku.hk/). Before that, I received my Bachelor's degree in the [School of Computer Science and Technology](https://cs.tongji.edu.cn/) at [Tongji University](https://www.tongji.edu.cn/). My research interest lies in machine learning, LLM, and RAG.
 
-[CV](/cv) [Posts](/year-archive/)
+**I am actively seeking research assistant, research internship and such opportunities to deepen my expertise in large language models and their applications in real-world scenarios.** With a strong foundation in machine learning and a growing passion for diffusion models, I am eager to contribute to cutting-edge research projects while developing my technical and analytical skills. My long-term goal is to pursue a PhD in Computer Science.
+
+Although I am currently a Taught Postgraduate (TPG) student with limited opportunities to engage in research and minimal publications to date, **I have never ceased seeking collaborative projects and am deeply committed to continuous learning.** You can find out more details in my 👉[CV](/cv)👈. I did some readings and made some toy projects after class, you can find some notes in 👉[Blogs](/year-archive/)👈. Although I have few publications, I still have some research experiences, you can find them in 👉[Publications](/publications)👈.
+
+
+## Research Experiences
+
+### 2026
+
+* **Unifying Temporal and Structural Credit Assignment in LLM-Based Multi-Agent Prompt Optimization** [[openreview]](https://openreview.net/forum?id=sjvxLHuCc2): This is a short-time voluntary RA experience with Prof. [Wenhao Li](https://ewanlee.weebly.com/) at Tongji University. The work lasts from Jan. 2026 to Mar. 2026. In this paper, the temporal and structual credit assignment problems in reinforcement learning are adopted to LLM-based multi-agent systems prompt optimization. Text gradient method is applied during a debate process. The idea was provided by the professor. I wrote most parts of the paper, drew some figures and tables, and ran all the experiments. The paper is under review by UAI.
+
+* **A Survey of Automatic Prompt Engineering: An Optimization Perspective** [[arxiv]](https://arxiv.org/abs/2502.11560): This is a short-time voluntary RA experience with Prof. [Wenhao Li](https://ewanlee.weebly.com/) at Tongji University. The work lasts from Sep. 2025 to Jan. 2026. In the paper, LLM context engineering is categorized into three optimization perspectives: prompt optimization, structural optimization, and memory optimization. I drew some figures, collected papers, summarized methodologies, finally wrote structual and memory optimization parts. The paper was rejected by IJCAI due to citation issues.
+
+### 2025
+
+* **BIRD-CRITIC NL2SQL Dataset Alignment Annotation** [[website]](https://bird-critic.github.io/): This is a short-time voluntary RA experience with Prof. [Reynold C.K. Cheng](https://www.reynold.hku.hk/) at HKU. The work lasts from Sep. 2025 to Oct. 2025. I checked over 1500 instances systematically, identified and classified 6 common categories of data quality issues, then rewrote 300+ problematic SQL queries. 
+
+* **An LLM Agent for Reasoning and Decision-Making Based on PRMs**: This is my undergraduate thesis. The work lasts from Nov. 2024 to May. 2025. The research purpose is inspired by [ChatGPT-o1](https://openai.com/o1/), which is popular at that time. The goal is to explore the reasoning ability improvement method behind [ChatGPT-o1](https://openai.com/o1/). Several post-training methods, such as SFT, and several reinforcement learning methods, such as PPO and GRPO, are applied.
+
+
+
+
+
+-------------------
+
+> Perhaps it's not suitable to put these travel photos on the academic page, but I think it's still worth sharing.
 
 <img src="/images/home/HK0.jpg" alt="" style="width:48%;" />
 <img src="/images/home/HK1.jpg" alt="" style="width:48%;" />
