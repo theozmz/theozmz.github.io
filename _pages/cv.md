@@ -13,7 +13,13 @@ Education
 ======
 <!-- * Ph.D in Version Control Theory, GitHub University, 2018  -->
 * M.S. in Computer Science, the University of Hong Kong, 2025-2026(expected)
+  * COMP7607 Natural language processing - Lingpeng Kong - A
+  * COMP7309 Quantum computing and artificial intelligence - Ebler Daniel - A-
+  * COMP7404 Computational intelligence and machine learning - Schnieders Dirk - A-
+  * COMP7508 Data-driven computer animation - Taku Komura - A-
+
 * B.S. in Software Engineering, Tongji University, 2021-2025
+  * Third-class Merit Scholarship
 
 Research Experiences
 ======

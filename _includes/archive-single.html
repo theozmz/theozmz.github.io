@@ -32,6 +32,9 @@
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
+      {% if post.sticky == true %}
+        <span class="sticky-badge" title="Sticky Post"><i class="fa fa-thumb-tack" aria-hidden="true"></i> sticky</span>
+      {% endif %}
     </h2>
     
     {% if post.read_time %}

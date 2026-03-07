@@ -48,6 +48,23 @@
   }
 }
 
+/* Sticky post badge */
+.sticky-badge {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0.2em 0.6em;
+  font-size: 0.75em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  border-radius: 3px;
+  vertical-align: middle;
+  
+  i {
+    margin-right: 0.3em;
+  }
+}
+
 /* remove border*/
 .page__content {
 
