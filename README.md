@@ -54,6 +54,13 @@ When you are initially working on your website, it is very useful to be able to 
 
 If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
 
+像这样写，在这生成：
+<!-- toc -->
+
+<!-- tocstop -->
+
+markdown生成目录：`markdown-toc -i .md`
+
 ## Using Docker
 
 Working from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.

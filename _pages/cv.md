@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-Download my CV 👉[here](../../../../files/CV.pdf)👈
+Download my CV 👉[here](../../../../files/CV.pdf){:target="_blank"}👈
 
 Education
 ======
@@ -26,18 +26,18 @@ Education
 
 Research Experiences
 ======
-* **Unifying Temporal and Structural Credit Assignment in LLM-Based Multi-Agent Prompt Optimization** [[openreview]](https://openreview.net/forum?id=sjvxLHuCc2)
+* **Unifying Temporal and Structural Credit Assignment in LLM-Based Multi-Agent Prompt Optimization** [[openreview]](https://openreview.net/forum?id=sjvxLHuCc2){:target="_blank"}
   * Read papers.
   * Drew the main table and the methodology figure.
   * Drafted `Introduction`, `Related Works`, `Methodology`, `Experiments` and `Conclusion`.
   * Deployed vllm using docker running 7-9B LLMs.
 
-* **A Survey of Automatic Prompt Engineering: An Optimization Perspective** [[arxiv]](https://arxiv.org/abs/2502.11560)
+* **A Survey of Automatic Prompt Engineering: An Optimization Perspective** [[arxiv]](https://arxiv.org/abs/2502.11560){:target="_blank"}
   * Collected and read papers.
   * Drew figures.
   * Wrote two parts of the paper.
 
-* **BIRD-CRITIC NL2SQL Dataset Alignment Annotation** [[website]](https://bird-critic.github.io/)
+* **BIRD-CRITIC NL2SQL Dataset Alignment Annotation** [[website]](https://bird-critic.github.io/){:target="_blank"}
   * Improved data quality of NL2SQL benchmark BIRD. 
   * Checked over 1500 instances systematically, identified and classified 6 common categories of data quality issues. 
   * Rewrote 300+ problematic SQL queries. 
@@ -55,14 +55,14 @@ Research Experiences
 
 Internships
 ======
-* **[NEV Company NIO Inc.](https://www.nio.com/)**
+* **[NEV Company NIO Inc.](https://www.nio.com/){:target="_blank"}**
   * Engineered a supply chain inventory analysis system, improving computing efficiency by 120%. 
   * Developed a backend in Nodejs. 
   * Implemented a frontend in JavaScript. 
   * Developed a database in MySQL. 
   * Conducted forecasts to validate future inventory.
 
-* **[Cyber Security Company Qianxin](https://www.qianxin.com/)**
+* **[Cyber Security Company Qianxin](https://www.qianxin.com/){:target="_blank"}**
   * Developed data-washing Python scripts, achieving 100\% accuracy on gambling dataset. 
   * Implemented crawler Python scripts, enhancing malicious websites identification accuracy. 
   * Conducted analysis on hardware, identifying criminal evidence. 
