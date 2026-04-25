@@ -13,7 +13,23 @@
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    {% if post.header.teaser and include.type != "grid" %}
+      <div class="archive__item-teaser" style="flex-shrink: 0; width: 200px; height: 120px; overflow: hidden; border-radius: 5px;">
+        <img src=
+          {% if post.header.teaser contains "://" %}
+            "{{ post.header.teaser }}"
+          {% else %}
+            "{{ post.header.teaser | prepend: "/images/" | prepend: base_path }}"
+          {% endif %}
+          alt="{{ post.title }}"
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    {% endif %}
+
+    <!-- Content area -->
+    <div style="flex: 1;">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
         <img src=
@@ -94,6 +110,6 @@
     {% elsif post.bibtexurl %}
       <p><a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
     {% endif %}
-
+    </div>
   </article>
 </div>
