@@ -137,13 +137,13 @@ Node* reverseLinkedList(Node* head) {
 ```
 
 迭代过程如下图所示：
-![206-1](../../../../images/posts/2026/04/linkedlist/206-1.png)
-![206-2](../../../../images/posts/2026/04/linkedlist/206-2.png)
-![206-3](../../../../images/posts/2026/04/linkedlist/206-3.png)
-![206-4](../../../../images/posts/2026/04/linkedlist/206-4.png)
-![206-5](../../../../images/posts/2026/04/linkedlist/206-5.png)
-![206-6](../../../../images/posts/2026/04/linkedlist/206-6.png)
-![206-7](../../../../images/posts/2026/04/linkedlist/206-7.png)
+![206-1](../../../../images/posts/2026/04/linkedlist/206-1.PNG)
+![206-2](../../../../images/posts/2026/04/linkedlist/206-2.PNG)
+![206-3](../../../../images/posts/2026/04/linkedlist/206-3.PNG)
+![206-4](../../../../images/posts/2026/04/linkedlist/206-4.PNG)
+![206-5](../../../../images/posts/2026/04/linkedlist/206-5.PNG)
+![206-6](../../../../images/posts/2026/04/linkedlist/206-6.PNG)
+![206-7](../../../../images/posts/2026/04/linkedlist/206-7.PNG)
 注意：最后返回的指针为`pre`。
 
 ### [LeetCode 92. 反转链表Ⅱ](https://leetcode.cn/problems/reverse-linked-list-ii/){:target="_blank"}
@@ -199,10 +199,10 @@ int main() {
 ```
 
 最后一步连接示意图：
-![92-1](../../../../images/posts/2026/04/linkedlist/92-1.png)
-![92-2](../../../../images/posts/2026/04/linkedlist/92-2.png)
-![92-3](../../../../images/posts/2026/04/linkedlist/92-3.png)
-![92-4](../../../../images/posts/2026/04/linkedlist/92-4.png)
+![92-1](../../../../images/posts/2026/04/linkedlist/92-1.PNG)
+![92-2](../../../../images/posts/2026/04/linkedlist/92-2.PNG)
+![92-3](../../../../images/posts/2026/04/linkedlist/92-3.PNG)
+![92-4](../../../../images/posts/2026/04/linkedlist/92-4.PNG)
 
 ### [LeetCode 25. K 个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group/){:target="_blank"}
 
@@ -261,18 +261,18 @@ int main() {
 ```
 
 依然示意图：
-![25-1](../../../../images/posts/2026/04/linkedlist/25-1.png)
-![25-2](../../../../images/posts/2026/04/linkedlist/25-2.png)
-![25-3](../../../../images/posts/2026/04/linkedlist/25-3.png)
-![25-4](../../../../images/posts/2026/04/linkedlist/25-4.png)
-![25-5](../../../../images/posts/2026/04/linkedlist/25-5.png)
-![25-6](../../../../images/posts/2026/04/linkedlist/25-6.png)
-![25-7](../../../../images/posts/2026/04/linkedlist/25-7.png)
-![25-8](../../../../images/posts/2026/04/linkedlist/25-8.png)
-![25-9](../../../../images/posts/2026/04/linkedlist/25-9.png)
-![25-10](../../../../images/posts/2026/04/linkedlist/25-10.png)
-![25-11](../../../../images/posts/2026/04/linkedlist/25-11.png)
-![25-12](../../../../images/posts/2026/04/linkedlist/25-12.png)
+![25-1](../../../../images/posts/2026/04/linkedlist/25-1.PNG)
+![25-2](../../../../images/posts/2026/04/linkedlist/25-2.PNG)
+![25-3](../../../../images/posts/2026/04/linkedlist/25-3.PNG)
+![25-4](../../../../images/posts/2026/04/linkedlist/25-4.PNG)
+![25-5](../../../../images/posts/2026/04/linkedlist/25-5.PNG)
+![25-6](../../../../images/posts/2026/04/linkedlist/25-6.PNG)
+![25-7](../../../../images/posts/2026/04/linkedlist/25-7.PNG)
+![25-8](../../../../images/posts/2026/04/linkedlist/25-8.PNG)
+![25-9](../../../../images/posts/2026/04/linkedlist/25-9.PNG)
+![25-10](../../../../images/posts/2026/04/linkedlist/25-10.PNG)
+![25-11](../../../../images/posts/2026/04/linkedlist/25-11.PNG)
+![25-12](../../../../images/posts/2026/04/linkedlist/25-12.PNG)
 
 ## 由繁到简
 
