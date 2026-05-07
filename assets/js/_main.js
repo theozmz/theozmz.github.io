@@ -72,9 +72,22 @@ var initTOC = () => {
   const tocList = document.getElementById("toc-list");
   const headings = document.querySelectorAll(".page__content h2, .page__content h3, .page__content h4, .page__content h5, .page__content h6");
 
-  if (!tocWrapper || !tocList || headings.length === 0 || tocList.children.length > 0) {
+  // if (!tocWrapper || !tocList || headings.length === 0 || tocList.children.length > 0) {
+  //   return;
+  // }
+
+  // Check if TOC has already been initialized
+  if (!tocWrapper || !tocList || headings.length === 0) {
     return;
   }
+
+  // Only initialize once - check for a flag
+  if (tocWrapper.dataset.tocInitialized === "true") {
+    return;
+  }
+
+  // Mark as initialized
+  tocWrapper.dataset.tocInitialized = "true";
 
   headings.forEach(function (heading) {
     const headingText = heading.textContent.trim();
@@ -125,7 +138,7 @@ var initTOC = () => {
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initTOC);
 } else {
-  initTOC();
+  // initTOC();
 }
 
 /* ==========================================================================
