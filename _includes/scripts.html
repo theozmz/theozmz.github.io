@@ -1,3 +1,78 @@
 <script type="module" src="{{ base_path }}/assets/js/main.min.js"></script>
 
+<script>
+  (function() {
+    function toggleTOC() {
+      const toc = document.getElementById('page-toc');
+      const icon = document.getElementById('toc-toggle-icon');
+
+      if (!toc || !icon) return;
+
+      if (toc.style.display === 'none') {
+        toc.style.display = 'block';
+        icon.innerHTML = '&#9660;';
+      } else {
+        toc.style.display = 'none';
+        icon.innerHTML = '&#9654;';
+      }
+    }
+
+    function initTOC() {
+      const tocWrapper = document.getElementById('page-toc-wrapper');
+      const tocList = document.getElementById('toc-list');
+      const headings = document.querySelectorAll('.page__content h2, .page__content h3, .page__content h4, .page__content h5, .page__content h6');
+
+      if (!tocWrapper || !tocList || headings.length === 0 || tocList.children.length > 0) return;
+
+      headings.forEach(function(heading) {
+        const headingText = heading.textContent.trim();
+        const headingId = heading.id;
+
+        if (!headingText || !headingId) return;
+
+        const item = document.createElement('li');
+        item.className = 'toc-item toc-level-' + heading.tagName.substring(1);
+
+        const link = document.createElement('a');
+        link.href = '#' + headingId;
+        link.className = 'toc-link';
+        link.textContent = headingText;
+
+        item.appendChild(link);
+        tocList.appendChild(item);
+      });
+
+      if (tocList.children.length === 0) return;
+
+      tocWrapper.style.display = 'block';
+
+      const tocLinks = tocList.querySelectorAll('.toc-link');
+      window.addEventListener('scroll', function() {
+        let current = '';
+
+        headings.forEach(function(heading) {
+          if (window.pageYOffset >= heading.offsetTop - 100) {
+            current = heading.getAttribute('id');
+          }
+        });
+
+        tocLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    window.toggleTOC = toggleTOC;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTOC);
+    } else {
+      initTOC();
+    }
+  })();
+</script>
+
 {% include analytics.html %}

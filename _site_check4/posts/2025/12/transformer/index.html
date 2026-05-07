@@ -1,0 +1,1115 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Hand-Written Transformer - ZMZ</title>
+
+
+
+<meta name="description" content="（新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）">
+
+
+
+
+
+  <meta property="article:published_time" content="2025-12-25T00:00:00+00:00">
+
+
+
+  <link rel="canonical" href="https://theozmz.github.io/posts/2025/12/transformer/">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Zhao Mingze",
+      "url" : "https://theozmz.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="ZMZ"> 
+<meta property="og:title" content="Hand-Written Transformer">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" name="description" content="（新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）">
+
+
+  <meta property="og:url" content="https://theozmz.github.io/posts/2025/12/transformer/">
+
+
+
+
+
+<!-- end Open Graph protocol -->
+
+<link href="https://theozmz.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="ZMZ Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://theozmz.github.io/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://theozmz.github.io/assets/css/academicons.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://theozmz.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://theozmz.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://theozmz.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://theozmz.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://theozmz.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="https://theozmz.github.io/">ZMZ</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/year-archive/">Blogs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/cv/">CV</a></li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://theozmz.github.io/images/profile.png" class="author__avatar" alt="Zhao Mingze"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Zhao Mingze</h3>
+    
+    <p class="author__bio">Student</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Earth</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>The University of Hong Kong</li>
+      
+      
+      
+        <li><a href="mailto:zhaomingze@connect.hku.hk"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+      
+      
+      
+                              
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/theozmz"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  <!-- Table of Contents for posts -->
+  
+    
+
+
+  <div id="page-toc-wrapper" class="page__toc-wrapper" style="display: none;">
+    <div class="page__toc-header" onclick="toggleTOC()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="page__toc-title">Table of Contents</h3>
+      <span id="toc-toggle-icon" style="font-size: 0.8em; transition: transform 0.3s ease;">&#9660;</span>
+    </div>
+
+    <nav id="page-toc" class="page__toc">
+      <ul id="toc-list" class="toc-list"></ul>
+    </nav>
+  </div>
+
+
+  
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Hand-Written Transformer">
+    <meta itemprop="description" content="（新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）">
+    <meta itemprop="datePublished" content="December 25, 2025">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Hand-Written Transformer
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  9 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2025-12-25T00:00:00+00:00">December 25, 2025</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>（新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Transformer 是一种基于 <strong>自注意力机制 (Self-Attention Mechanism)</strong> 的深度学习模型架构，最初于 2017 年由 Google 在论文《<a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>》中提出。它完全摒弃了传统的循环神经网络 (RNN) 和卷积神经网络 (CNN) 结构，仅依赖注意力机制来处理序列数据，实现了高效的并行计算，成为现代自然语言处理 (NLP) 和大语言模型 (LLM) 的基石。</p>
+
+<p>The Transformer is a deep learning model architecture based on the <strong>Self-Attention Mechanism</strong>. It was first introduced by Google in the 2017 paper “<a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>”. It completely abandons traditional Recurrent Neural Networks (RNNs) and Convolutional Neural Networks (CNNs), relying solely on attention mechanisms to process sequential data. This design enables highly efficient parallel computation and has become the foundation of modern Natural Language Processing (NLP) and Large Language Models (LLMs).</p>
+
+<p>Transformer 主要解决了 <strong>长序列依赖建模</strong> 和 <strong>训练效率</strong> 两大核心问题。</p>
+
+<ul>
+  <li><strong>RNN/CNN 的瓶颈</strong>：RNN 无法有效并行化，且存在梯度消失/爆炸问题，难以学习长距离依赖。CNN 的卷积核视野有限，捕获长程上下文需要堆叠很多层。</li>
+  <li><strong>Transformer 的解决方案</strong>：通过自注意力机制，模型能够直接计算序列中任意两个位置之间的关系（无论距离多远），从而高效捕获全局依赖。同时，其结构天然支持并行计算，极大加速了模型训练。</li>
+</ul>
+
+<p>The Transformer primarily addresses two core issues: <strong>long-range dependency modeling</strong> and <strong>training efficiency</strong>.</p>
+
+<ul>
+  <li><strong>Limitations of RNNs/CNNs</strong>: RNNs cannot be parallelized effectively and suffer from vanishing/exploding gradient problems, making it difficult to learn long-distance dependencies. CNNs have limited receptive field sizes, requiring many stacked layers to capture long-range context.</li>
+  <li><strong>Transformer’s Solution</strong>: Through the self-attention mechanism, the model can directly compute relationships between any two positions in a sequence (regardless of distance), thereby efficiently capturing global dependencies. Furthermore, its architecture inherently supports parallel computation, significantly accelerating model training.</li>
+</ul>
+
+<p>一些关键组件：</p>
+
+<ol>
+  <li><strong>自注意力机制 (Self-Attention)</strong>：核心组件。为序列中的每个词计算一个“注意力分数”，表示在编码当前词时，应该“关注”序列中其他词的权重。</li>
+  <li><strong>多头注意力 (Multi-Head Attention)</strong>：将自注意力机制并行执行多次（多个“头”），每个头学习不同的关注模式，最后将结果合并，增强了模型的表示能力。</li>
+  <li><strong>位置编码 (Positional Encoding)</strong>：由于 Transformer 本身没有循环或卷积结构，它需要额外注入序列中词的位置信息。通常使用正弦和余弦函数来生成位置编码向量，与词向量相加。</li>
+  <li><strong>编码器 (Encoder)</strong>：由 N 个相同的层堆叠而成。每层包含一个<strong>多头自注意力子层</strong>和一个<strong>前馈神经网络 (Feed-Forward Network, FFN) 子层</strong>，每个子层后都有<strong>残差连接 (Residual Connection)</strong> 和<strong>层归一化 (Layer Normalization)</strong>。</li>
+  <li><strong>解码器 (Decoder)</strong>：同样由 N 个相同的层堆叠。除了包含编码器中的两个子层，还额外插入一个<strong>交叉注意力 (Cross-Attention) 子层</strong>，用于关注编码器的输出。解码器在训练时使用<strong>掩码自注意力 (Masked Self-Attention)</strong>，确保预测时只能看到当前位置及之前的信息。</li>
+  <li><strong>前馈神经网络 (FFN)</strong>：一个简单的全连接网络，通常包含两个线性变换和一个激活函数（如 ReLU），作用于每个位置独立且相同。</li>
+  <li><strong>残差连接与层归一化 (Add &amp; Norm)</strong>：每个子层的输出是 <code class="language-plaintext highlighter-rouge">LayerNorm(x + Sublayer(x))</code>。残差连接缓解了深度网络中的梯度消失问题，层归一化稳定了训练过程。</li>
+</ol>
+
+<p>Some key components:</p>
+
+<ol>
+  <li><strong>Self-Attention</strong>: The core component. It calculates an “attention score” for each word in the sequence, representing the weight (importance) of other words when encoding the current word.</li>
+  <li><strong>Multi-Head Attention</strong>: Executes the self-attention mechanism in parallel multiple times (multiple “heads”). Each head learns different patterns of attention, and the results are combined, enhancing the model’s representational capacity.</li>
+  <li><strong>Positional Encoding</strong>: Since the Transformer lacks inherent recurrent or convolutional structures, it needs additional information about the order of words. This is done by adding a positional encoding vector (typically generated using sine and cosine functions) to the word embeddings.</li>
+  <li><strong>Encoder</strong>: A stack of N identical layers. Each layer contains a <strong>multi-head self-attention sub-layer</strong> and a <strong>Feed-Forward Network (FFN) sub-layer</strong>, followed by <strong>Residual Connection</strong> and <strong>Layer Normalization</strong>.</li>
+  <li><strong>Decoder</strong>: Also a stack of N identical layers. In addition to the two sub-layers present in the encoder, it includes an extra <strong>cross-attention sub-layer</strong> that attends to the encoder’s output. During training, the decoder uses <strong>masked self-attention</strong> to ensure predictions for a position can only depend on known outputs at previous positions.</li>
+  <li><strong>Feed-Forward Network (FFN)</strong>: A simple fully connected network, typically consisting of two linear transformations with an activation function (e.g., ReLU) in between. It is applied identically and independently to each position.</li>
+  <li><strong>Residual Connection &amp; Layer Normalization (Add &amp; Norm)</strong>: The output of each sub-layer is <code class="language-plaintext highlighter-rouge">LayerNorm(x + Sublayer(x))</code>. Residual connections mitigate the vanishing gradient problem in deep networks, and layer normalization stabilizes the training process.</li>
+</ol>
+
+<p>训练流程：</p>
+
+<ol>
+  <li><strong>输入处理</strong>：源序列和目标序列经过词嵌入层和位置编码，得到输入向量。</li>
+  <li><strong>前向传播</strong>：
+    <ul>
+      <li><strong>编码器</strong>：接收处理后的源序列，通过多层编码器进行计算，输出上下文相关的表示。</li>
+      <li><strong>解码器</strong>：接收处理后的目标序列（训练时使用<strong>右移</strong>的真实目标序列，即“教师强制”），结合编码器输出，通过多层解码器进行计算。</li>
+    </ul>
+  </li>
+  <li><strong>输出预测</strong>：解码器最后层的输出通过一个线性层和 Softmax 函数，预测下一个词的概率分布。</li>
+  <li><strong>计算损失</strong>：使用<strong>交叉熵损失函数</strong>，比较模型预测的概率分布与真实的下一个词（标签）。</li>
+  <li><strong>反向传播与优化</strong>：计算梯度，并使用优化器（如 Adam）更新模型所有权重参数。整个过程<strong>高度并行</strong>，因为序列所有位置的计算可同时进行。</li>
+</ol>
+
+<p>Train process:</p>
+
+<ol>
+  <li><strong>Input Processing</strong>: The source and target sequences are passed through an embedding layer and positional encoding to obtain input vectors.</li>
+  <li><strong>Forward Pass</strong>:
+    <ul>
+      <li><strong>Encoder</strong>: Takes the processed source sequence, processes it through multiple encoder layers, and outputs context-aware representations.</li>
+      <li><strong>Decoder</strong>: Takes the processed target sequence (during training, the <strong>right-shifted</strong> actual target sequence is used, known as “teacher forcing”), combined with the encoder’s output, and processes it through multiple decoder layers.</li>
+    </ul>
+  </li>
+  <li><strong>Output Prediction</strong>: The output of the final decoder layer is passed through a linear layer and a Softmax function to predict a probability distribution over the vocabulary for the next word.</li>
+  <li><strong>Loss Calculation</strong>: The <strong>Cross-Entropy Loss</strong> function is used to compare the model’s predicted probability distribution against the true next word (the label).</li>
+  <li><strong>Backpropagation &amp; Optimization</strong>: Gradients are calculated, and an optimizer (e.g., Adam) updates all model parameters. The entire process is <strong>highly parallelizable</strong> because computations for all positions in the sequence can be performed simultaneously.</li>
+</ol>
+
+<p>推理流程：</p>
+
+<ol>
+  <li><strong>编码</strong>：将源序列（例如，要翻译的句子）输入编码器，得到其表示。</li>
+  <li><strong>自回归生成</strong>：解码器以<strong>自回归 (Autoregressive)</strong> 方式逐个生成目标序列的单词。
+    <ul>
+      <li>起始：输入一个特殊的开始符号 <code class="language-plaintext highlighter-rouge">&lt;bos&gt;</code> 给解码器。</li>
+      <li>单步：解码器结合当前的输入序列（已生成的部分）和编码器的输出，预测下一个词的概率分布。</li>
+      <li>采样：根据策略（如贪婪搜索、集束搜索、随机采样）从分布中选择一个词作为输出。</li>
+      <li>追加：将生成的词追加到输入序列末尾，作为下一步的输入。</li>
+    </ul>
+  </li>
+  <li><strong>循环</strong>：重复步骤 2，直到解码器生成一个特殊的结束符号 <code class="language-plaintext highlighter-rouge">&lt;eos&gt;</code> 或达到预设的最大生成长度。</li>
+  <li><strong>特点</strong>：推理是<strong>顺序</strong>的，无法像训练时那样并行生成整个序列，因为每一步的输入都依赖于上一步的输出。</li>
+</ol>
+
+<p>Inference process:</p>
+
+<ol>
+  <li><strong>Encode</strong>: Feed the source sequence (e.g., a sentence to translate) into the encoder to obtain its representation.</li>
+  <li><strong>Autoregressive Generation</strong>: The decoder generates the target sequence <strong>autoregressively</strong>, one word at a time.
+    <ul>
+      <li><strong>Start</strong>: Input a special beginning-of-sequence token <code class="language-plaintext highlighter-rouge">&lt;bos&gt;</code> to the decoder.</li>
+      <li><strong>Single Step</strong>: The decoder, conditioned on the current input sequence (the partially generated sequence) and the encoder’s output, predicts a probability distribution for the next word.</li>
+      <li><strong>Sampling</strong>: A word is selected from this distribution based on a chosen strategy (e.g., greedy search, beam search, random sampling).</li>
+      <li><strong>Append</strong>: The generated word is appended to the input sequence for the next step.</li>
+    </ul>
+  </li>
+  <li><strong>Loop</strong>: Repeat step 2 until the decoder generates a special end-of-sequence token <code class="language-plaintext highlighter-rouge">&lt;eos&gt;</code> or a predefined maximum length is reached.</li>
+  <li><strong>Key Characteristic</strong>: Inference is <strong>sequential</strong>. Unlike during training, the entire output sequence cannot be generated in parallel because the input for each step depends on the output from the previous step.</li>
+</ol>
+
+<h1 id="components">Components</h1>
+
+<h2 id="layer-normalization">Layer Normalization</h2>
+
+<p>详细公式推导见 <a href="/posts/2025/12/foundation/">经典论文圣地巡礼之RNN</a></p>
+
+<p>代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LayerNorm</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+   
+   <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+      <span class="n">mean</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+      <span class="n">var</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">var</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+      <span class="n">x_hat</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">torch</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">eps</span><span class="p">)</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">x_hat</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">beta</span>
+</code></pre></div></div>
+
+<h2 id="positional-encoding">Positional Encoding</h2>
+
+<h3 id="rotary-position-embedding-rope">Rotary Position Embedding (RoPE)</h3>
+
+<p><a href="https://arxiv.org/abs/2104.09864">论文</a></p>
+
+<p>代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">precompute_freqs_cis</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10000.0</span><span class="p">):</span>
+    <span class="s">"""
+    Precompute the frequency tensor for complex exponentials (cis) with given dimensions.
+
+    This function calculates a frequency tensor with complex exponentials using the given dimension 'dim'
+    and the end index 'end'. The 'theta' parameter scales the frequencies.
+    The returned tensor contains complex values in complex64 data type.
+
+    Args:
+        dim (int): Dimension of the frequency tensor.
+        end (int): End index for precomputing frequencies.
+        theta (float, optional): Scaling factor for frequency computation. Defaults to 10000.0.
+
+    Returns:
+        torch.Tensor: Precomputed frequency tensor with complex exponentials.
+
+    
+        
+
+    """</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">theta</span> <span class="o">**</span> <span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:</span> <span class="p">(</span><span class="n">dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)].</span><span class="nb">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">dim</span><span class="p">))</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">freqs</span><span class="p">.</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># type: ignore
+</span>    <span class="n">freqs</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">outer</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">freqs</span><span class="p">).</span><span class="nb">float</span><span class="p">()</span>  <span class="c1"># type: ignore
+</span>    <span class="n">freqs_cis</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">polar</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">freqs</span><span class="p">),</span> <span class="n">freqs</span><span class="p">)</span>  <span class="c1"># complex64
+</span>    <span class="k">return</span> <span class="n">freqs_cis</span>
+
+
+<span class="k">def</span> <span class="nf">reshape_for_broadcast</span><span class="p">(</span><span class="n">freqs_cis</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">):</span>
+    <span class="s">"""
+    Reshape frequency tensor for broadcasting it with another tensor.
+
+    This function reshapes the frequency tensor to have the same shape as the target tensor 'x'
+    for the purpose of broadcasting the frequency tensor during element-wise operations.
+
+    Args:
+        freqs_cis (torch.Tensor): Frequency tensor to be reshaped.
+        x (torch.Tensor): Target tensor for broadcasting compatibility.
+
+    Returns:
+        torch.Tensor: Reshaped frequency tensor.
+
+    Raises:
+        AssertionError: If the frequency tensor doesn't match the expected shape.
+        AssertionError: If the target tensor 'x' doesn't have the expected number of dimensions.
+    """</span>
+    <span class="n">ndim</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">ndim</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">ndim</span>
+    <span class="k">assert</span> <span class="n">freqs_cis</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">freqs_cis</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">apply_rotary_emb</span><span class="p">(</span>
+    <span class="n">xq</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">xk</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">freqs_cis</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">]:</span>
+    <span class="s">"""
+    Apply rotary embeddings to input tensors using the given frequency tensor.
+
+    This function applies rotary embeddings to the given query 'xq' and key 'xk' tensors using the provided
+    frequency tensor 'freqs_cis'. The input tensors are reshaped as complex numbers, and the frequency tensor
+    is reshaped for broadcasting compatibility. The resulting tensors contain rotary embeddings and are
+    returned as real tensors.
+
+    Args:
+        xq (torch.Tensor): Query tensor to apply rotary embeddings.
+        xk (torch.Tensor): Key tensor to apply rotary embeddings.
+        freqs_cis (torch.Tensor): Precomputed frequency tensor for complex exponentials.
+
+    Returns:
+        Tuple[torch.Tensor, torch.Tensor]: Tuple of modified query tensor and key tensor with rotary embeddings.
+
+        
+
+    """</span>
+    <span class="n">xq_</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">view_as_complex</span><span class="p">(</span><span class="n">xq</span><span class="p">.</span><span class="nb">float</span><span class="p">().</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">xq</span><span class="p">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">xk_</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">view_as_complex</span><span class="p">(</span><span class="n">xk</span><span class="p">.</span><span class="nb">float</span><span class="p">().</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">xk</span><span class="p">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">freqs_cis</span> <span class="o">=</span> <span class="n">reshape_for_broadcast</span><span class="p">(</span><span class="n">freqs_cis</span><span class="p">,</span> <span class="n">xq_</span><span class="p">)</span>
+    <span class="n">xq_out</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">xq_</span> <span class="o">*</span> <span class="n">freqs_cis</span><span class="p">).</span><span class="n">flatten</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">xk_out</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">xk_</span> <span class="o">*</span> <span class="n">freqs_cis</span><span class="p">).</span><span class="n">flatten</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xq_out</span><span class="p">.</span><span class="n">type_as</span><span class="p">(</span><span class="n">xq</span><span class="p">),</span> <span class="n">xk_out</span><span class="p">.</span><span class="n">type_as</span><span class="p">(</span><span class="n">xk</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="attention">Attention</h2>
+
+<h3 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
+
+<p>公式：</p>
+
+\[\mathrm{Attention}(Q, K, V) = \mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V\]
+
+<p>代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">attention</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+   <span class="n">d_k</span> <span class="o">=</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+   <span class="n">scores</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_k</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e9</span><span class="p">)</span>
+   <span class="n">p_attn</span> <span class="o">=</span> <span class="n">scores</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">p_attn</span> <span class="o">=</span> <span class="n">dropout</span><span class="p">(</span><span class="n">p_attn</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">p_attn</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="multi-head-attention">Multi-Head Attention</h3>
+
+<p>公式：</p>
+
+\[\mathrm{MultiHead}(Q, K, V) =
+    \mathrm{Concat}(\mathrm{head_1}, ..., \mathrm{head_h})W^O\]
+
+<p>where</p>
+
+\[\mathrm{head_i} = \mathrm{Attention}(QW^Q_i, KW^K_i, VW^V_i)\]
+
+<p>Where the projections are parameter matrices \(W^Q_i \in
+\mathbb{R}^{d_{\text{model}} \times d_k}\), \(W^K_i \in
+\mathbb{R}^{d_{\text{model}} \times d_k}\), \(W^V_i \in
+\mathbb{R}^{d_{\text{model}} \times d_v}\) and \(W^O \in
+\mathbb{R}^{hd_v \times d_{\text{model}}}\).</p>
+
+<p>代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultiHeadedAttention</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="s">"Take in model size and number of heads."</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiHeadedAttention</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">d_model</span> <span class="o">%</span> <span class="n">h</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="c1"># We assume d_v always equals d_k
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">d_k</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">linears</span> <span class="o">=</span> <span class="n">clones</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">attn</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="s">"Implements Figure 2"</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># Same mask applied to all h heads.
+</span>            <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">nbatches</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># 1) Do all the linear projections in batch from d_model =&gt; h x d_k
+</span>        <span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">lin</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">view</span><span class="p">(</span><span class="n">nbatches</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">d_k</span><span class="p">).</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">lin</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">linears</span><span class="p">,</span> <span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="p">]</span>
+
+        <span class="c1"># 2) Apply attention on all the projected vectors in batch.
+</span>        <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">attn</span> <span class="o">=</span> <span class="n">attention</span><span class="p">(</span>
+            <span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">dropout</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 3) "Concat" using a view and apply a final linear.
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">x</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">contiguous</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="n">nbatches</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">h</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">d_k</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">del</span> <span class="n">query</span>
+        <span class="k">del</span> <span class="n">key</span>
+        <span class="k">del</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">linears</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">](</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#papers" class="page__taxonomy-item" rel="tag">papers</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#pytorch" class="page__taxonomy-item" rel="tag">PyTorch</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#research" class="page__taxonomy-item" rel="tag">research</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#transformer" class="page__taxonomy-item" rel="tag">transformer</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://theozmz.github.io/posts/2025/12/methods/" class="pagination--pager" title="Machine Learning Methods: From Perceptron to SVM
+">Previous</a>
+    
+    
+      <a href="https://theozmz.github.io/posts/2025/12/foundation/" class="pagination--pager" title="Reading: Foundation Papers
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://theozmz.github.io/images//posts/2026/05/dm/banner.png"
+          
+          alt="">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/05/dm/" rel="permalink">维什戴尔大人教你如何从死魂灵中挖掘数据: Data Mining
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-05-07T00:00:00+00:00">May 07, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Data Mining 期末复习及总结</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#data-mining" class="page__taxonomy-item" rel="tag">data mining</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://theozmz.github.io/images//posts/2026/04/linkedlist/banner.png"
+          
+          alt="">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/linkedlist/" rel="permalink">刻俄柏都能看懂的反转链表！论反转链表及其变体
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  5 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-26T00:00:00+00:00">April 26, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>链表题是面试中比较常见的一类题型，其拥有很多变体，且操作起来需要很强的逻辑推理能力。本人最近刚刚恢复刷题，自然难逃链表的魔掌，被折磨得比较痛苦。最近刷到了<a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/" target="_blank">leetcode 25</a>，有幸得@<a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/1992228/you-xie-cuo-liao-yi-ge-shi-pin-jiang-tou-plfs" target="_blank">灵茶山艾府</a>题解指点，豁然开朗，小彻小悟。特此记录，防止忘了（悲。</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#leetcode" class="page__taxonomy-item" rel="tag">leetcode</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#algorithm" class="page__taxonomy-item" rel="tag">algorithm</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#linkedlist" class="page__taxonomy-item" rel="tag">linkedlist</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://theozmz.github.io/images//posts/2026/04/quant/banner.png"
+          
+          alt="">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/quant/" rel="permalink">凉前辈教你量化金融！Exploration in Financial Computing and Quantitative Finance
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  208 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-19T00:00:00+00:00">April 19, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>金融计算期末复习+总结，应付考试集大成之作。（悲</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#finance" class="page__taxonomy-item" rel="tag">finance</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#quant" class="page__taxonomy-item" rel="tag">quant</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/agent/" rel="permalink">Prompt, Context, and Harness Engineering
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-19T00:00:00+00:00">April 19, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>（新坑：总结agent工程的演变，顺便总结一下一个agent的面试项目）</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#harness" class="page__taxonomy-item" rel="tag">harness</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#agent" class="page__taxonomy-item" rel="tag">agent</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#mas" class="page__taxonomy-item" rel="tag">MAS</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<a href="/sitemap/">Sitemap</a>
+
+<!-- Support for MatJax -->
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Plotly -->
+<script defer src='https://cdnjs.cloudflare.com/ajax/libs/plotly.js/3.0.1/plotly.min.js'></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/theozmz"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://theozmz.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Zhao Mingze, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-05-07
+</div>
+
+      </footer>
+    </div>
+
+    <script type="module" src="https://theozmz.github.io/assets/js/main.min.js"></script>
+
+<script>
+  (function() {
+    function toggleTOC() {
+      const toc = document.getElementById('page-toc');
+      const icon = document.getElementById('toc-toggle-icon');
+
+      if (!toc || !icon) return;
+
+      if (toc.style.display === 'none') {
+        toc.style.display = 'block';
+        icon.innerHTML = '&#9660;';
+      } else {
+        toc.style.display = 'none';
+        icon.innerHTML = '&#9654;';
+      }
+    }
+
+    function initTOC() {
+      const tocWrapper = document.getElementById('page-toc-wrapper');
+      const tocList = document.getElementById('toc-list');
+      const headings = document.querySelectorAll('.page__content h2, .page__content h3, .page__content h4, .page__content h5, .page__content h6');
+
+      if (!tocWrapper || !tocList || headings.length === 0 || tocList.children.length > 0) return;
+
+      headings.forEach(function(heading) {
+        const headingText = heading.textContent.trim();
+        const headingId = heading.id;
+
+        if (!headingText || !headingId) return;
+
+        const item = document.createElement('li');
+        item.className = 'toc-item toc-level-' + heading.tagName.substring(1);
+
+        const link = document.createElement('a');
+        link.href = '#' + headingId;
+        link.className = 'toc-link';
+        link.textContent = headingText;
+
+        item.appendChild(link);
+        tocList.appendChild(item);
+      });
+
+      if (tocList.children.length === 0) return;
+
+      tocWrapper.style.display = 'block';
+
+      const tocLinks = tocList.querySelectorAll('.toc-link');
+      window.addEventListener('scroll', function() {
+        let current = '';
+
+        headings.forEach(function(heading) {
+          if (window.pageYOffset >= heading.offsetTop - 100) {
+            current = heading.getAttribute('id');
+          }
+        });
+
+        tocLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    window.toggleTOC = toggleTOC;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTOC);
+    } else {
+      initTOC();
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

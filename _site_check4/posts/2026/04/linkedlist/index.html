@@ -1,0 +1,1134 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>刻俄柏都能看懂的反转链表！论反转链表及其变体 - ZMZ</title>
+
+
+
+<meta name="description" content="链表题是面试中比较常见的一类题型，其拥有很多变体，且操作起来需要很强的逻辑推理能力。本人最近刚刚恢复刷题，自然难逃链表的魔掌，被折磨得比较痛苦。最近刷到了leetcode 25，有幸得@灵茶山艾府题解指点，豁然开朗，小彻小悟。特此记录，防止忘了（悲。">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-26T00:00:00+00:00">
+
+
+
+  <link rel="canonical" href="https://theozmz.github.io/posts/2026/04/linkedlist/">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Zhao Mingze",
+      "url" : "https://theozmz.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="ZMZ"> 
+<meta property="og:title" content="刻俄柏都能看懂的反转链表！论反转链表及其变体">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" name="description" content="链表题是面试中比较常见的一类题型，其拥有很多变体，且操作起来需要很强的逻辑推理能力。本人最近刚刚恢复刷题，自然难逃链表的魔掌，被折磨得比较痛苦。最近刷到了leetcode 25，有幸得@灵茶山艾府题解指点，豁然开朗，小彻小悟。特此记录，防止忘了（悲。">
+
+
+  <meta property="og:url" content="https://theozmz.github.io/posts/2026/04/linkedlist/">
+
+
+
+
+
+<!-- end Open Graph protocol -->
+
+<link href="https://theozmz.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="ZMZ Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://theozmz.github.io/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://theozmz.github.io/assets/css/academicons.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://theozmz.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://theozmz.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://theozmz.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://theozmz.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://theozmz.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="https://theozmz.github.io/">ZMZ</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/year-archive/">Blogs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://theozmz.github.io/cv/">CV</a></li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://theozmz.github.io/images/profile.png" class="author__avatar" alt="Zhao Mingze"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Zhao Mingze</h3>
+    
+    <p class="author__bio">Student</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Earth</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>The University of Hong Kong</li>
+      
+      
+      
+        <li><a href="mailto:zhaomingze@connect.hku.hk"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+      
+      
+      
+                              
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/theozmz"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  <!-- Table of Contents for posts -->
+  
+    
+
+
+  <div id="page-toc-wrapper" class="page__toc-wrapper" style="display: none;">
+    <div class="page__toc-header" onclick="toggleTOC()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="page__toc-title">Table of Contents</h3>
+      <span id="toc-toggle-icon" style="font-size: 0.8em; transition: transform 0.3s ease;">&#9660;</span>
+    </div>
+
+    <nav id="page-toc" class="page__toc">
+      <ul id="toc-list" class="toc-list"></ul>
+    </nav>
+  </div>
+
+
+  
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="刻俄柏都能看懂的反转链表！论反转链表及其变体">
+    <meta itemprop="description" content="链表题是面试中比较常见的一类题型，其拥有很多变体，且操作起来需要很强的逻辑推理能力。本人最近刚刚恢复刷题，自然难逃链表的魔掌，被折磨得比较痛苦。最近刷到了leetcode 25，有幸得@灵茶山艾府题解指点，豁然开朗，小彻小悟。特此记录，防止忘了（悲。">
+    <meta itemprop="datePublished" content="April 26, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">刻俄柏都能看懂的反转链表！论反转链表及其变体
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  5 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-26T00:00:00+00:00">April 26, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>链表题是面试中比较常见的一类题型，其拥有很多变体，且操作起来需要很强的逻辑推理能力。本人最近刚刚恢复刷题，自然难逃链表的魔掌，被折磨得比较痛苦。最近刷到了<a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/" target="_blank">leetcode 25</a>，有幸得@<a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/1992228/you-xie-cuo-liao-yi-ge-shi-pin-jiang-tou-plfs" target="_blank">灵茶山艾府</a>题解指点，豁然开朗，小彻小悟。特此记录，防止忘了（悲。</p>
+
+<p><img src="../../../../images/posts/2026/04/linkedlist/banner.png" alt="banner" /></p>
+
+<p>题图：刻俄柏都能看懂的反转链表！论反转链表及其变体。由ChatGPT-Image2生成。</p>
+
+<h2 id="acm-模式下的链表细节">ACM 模式下的链表细节</h2>
+
+<p>首先，面试一般是ACM模式，和leetcode那种只写函数的模式不同，需要把库导入全，数据结构也要定义清楚，主函数还要写一小部分单元测试。对于链表这种类型，需要自己写链表结构体。下面是C++版本的链表结构体定义：</p>
+
+<ul>
+  <li>首先是一个单链表。成员由节点值<code class="language-plaintext highlighter-rouge">val</code>和指向下一个节点的指针<code class="language-plaintext highlighter-rouge">next</code>组成。构造函数有3个，可以挑有用的写。</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">ListNode</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">ListNode</span><span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<ul>
+  <li>接下来是一个双向链表，除了指向下一个节点的<code class="language-plaintext highlighter-rouge">next</code>指针，还包含一个指向上一个节点的<code class="language-plaintext highlighter-rouge">prev</code>指针。</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">ListNode</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">ListNode</span><span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">prev</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">prev</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span><span class="n">prev</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span><span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">prev</span><span class="p">(</span><span class="n">prev</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>部分题目会用到其他的指针，比如<a href="https://leetcode.cn/problems/copy-list-with-random-pointer/" target="_blank">138. 随机链表的复制</a>就用到了random指针。不过大差不差，根据题目灵活变化。</p>
+  </li>
+  <li>
+    <p>有些题目需要用到哨兵节点，一般是开辟一块内存然后指针指向这块内存，也可以写在一起。</p>
+  </li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ListNode</span> <span class="n">dummy</span><span class="p">;</span> <span class="c1">// 开辟新内存</span>
+<span class="n">ListNode</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dummy</span><span class="p">;</span> <span class="c1">// 添加指向新内存的指针</span>
+<span class="p">...</span>
+<span class="k">return</span> <span class="n">dummy</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>  <span class="c1">// 非指针使用点访问类成员</span>
+</code></pre></div></div>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 另一种开辟和指向</span>
+<span class="p">...</span>
+<span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="由简到繁">由简到繁</h2>
+
+<h3 id="leetcode-206-反转链表"><a href="https://leetcode.cn/problems/reverse-linked-list/" target="_blank">LeetCode 206. 反转链表</a></h3>
+
+<p>这道题给我们一个链表，要求我们返回反转后的链表。有两种方式解决：一种是递归，先递到链表末尾，归的时候反转，然后返回；另一种是迭代，顺序一个一个反转，然后返回。</p>
+
+<ul>
+  <li>代码框架</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+	
+	<span class="n">Node</span> <span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span> <span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">reverseLinkedList</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)))));</span>
+	<span class="c1">//Node* test = new Node(1);</span>
+	<span class="c1">//Node* test = nullptr;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">res</span> <span class="o">=</span> <span class="n">reverseLinkedList</span><span class="p">(</span><span class="n">test</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">;</span>
+		<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>递归：</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span><span class="o">*</span> <span class="nf">reverseLinkedList</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// The initial linked list is null or contains only one node.</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">nullptr</span> <span class="o">||</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">// The last node in the linked list.</span>
+	<span class="k">auto</span> <span class="n">last</span> <span class="o">=</span> <span class="n">reverseLinkedList</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+	<span class="c1">// HERE HEAD IS THE LAST NODE!</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="c1">// Against looping.</span>
+	<span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">last</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>注意当前<code class="language-plaintext highlighter-rouge">head</code>和<code class="language-plaintext highlighter-rouge">last</code>的区别。</p>
+
+<ul>
+  <li>迭代：</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span><span class="o">*</span> <span class="nf">reverseLinkedList</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+		<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">pre</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>迭代过程如下图所示：
+<img src="../../../../images/posts/2026/04/linkedlist/206-1.PNG" alt="206-1" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-2.PNG" alt="206-2" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-3.PNG" alt="206-3" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-4.PNG" alt="206-4" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-5.PNG" alt="206-5" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-6.PNG" alt="206-6" />
+<img src="../../../../images/posts/2026/04/linkedlist/206-7.PNG" alt="206-7" />
+注意：最后返回的指针为<code class="language-plaintext highlighter-rouge">pre</code>。</p>
+
+<h3 id="leetcode-92-反转链表ⅱ"><a href="https://leetcode.cn/problems/reverse-linked-list-ii/" target="_blank">LeetCode 92. 反转链表Ⅱ</a></h3>
+
+<p>给出链表头指针和左右索引，反转两个索引之间的链表。这题的关键是在反转前把指针移到开头，只反转一部分，反转后连接成为一个链表这三点。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+
+	<span class="n">Node</span><span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">reverseBetween</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Node</span> <span class="n">dummy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">newHead</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dummy</span><span class="p">;</span>
+	<span class="c1">// Move the pointer to the begin.</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">newHead</span> <span class="o">=</span> <span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="c1">// Only reverse between left and right.</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+		<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">// Link as a whole.</span>
+	<span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+	<span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">dummy</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)))));</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">res</span> <span class="o">=</span> <span class="n">reverseBetween</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+	<span class="c1">//Node* test = new Node(1);</span>
+	<span class="c1">//Node* res = reverseBetween(test, 1, 1);</span>
+	<span class="c1">//Node* test = nullptr;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">;</span>
+		<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>最后一步连接示意图：
+<img src="../../../../images/posts/2026/04/linkedlist/92-1.PNG" alt="92-1" />
+<img src="../../../../images/posts/2026/04/linkedlist/92-2.PNG" alt="92-2" />
+<img src="../../../../images/posts/2026/04/linkedlist/92-3.PNG" alt="92-3" />
+<img src="../../../../images/posts/2026/04/linkedlist/92-4.PNG" alt="92-4" /></p>
+
+<h3 id="leetcode-25-k-个一组翻转链表"><a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/" target="_blank">LeetCode 25. K 个一组翻转链表</a></h3>
+
+<p>给出链表的头节点，每<code class="language-plaintext highlighter-rouge">k</code>个一组反转链表。于是就<code class="language-plaintext highlighter-rouge">k</code>个一组反转链表，需要注意最前面的<code class="language-plaintext highlighter-rouge">newHead</code>也要跟着更新。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+
+	<span class="n">Node</span><span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">reverseKGroup</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="n">cur</span><span class="p">;</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+		<span class="o">++</span><span class="n">n</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">Node</span> <span class="n">dummy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">newHead</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dummy</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="c1">// Group by K.</span>
+	<span class="k">for</span> <span class="p">(;</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="p">;</span> <span class="n">n</span> <span class="o">-=</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// Only reverse K.</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">Node</span><span class="o">*</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+			<span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+			<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+			<span class="n">cur</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="c1">// Link K nodes as a whole.</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+		<span class="n">newHead</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">dummy</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)))));</span>
+	<span class="c1">//Node* res = reverseKGroup(test, 2);</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">res</span> <span class="o">=</span> <span class="n">reverseKGroup</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+	<span class="c1">//Node* test = nullptr;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">;</span>
+		<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>依然示意图：
+<img src="../../../../images/posts/2026/04/linkedlist/25-1.PNG" alt="25-1" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-2.PNG" alt="25-2" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-3.PNG" alt="25-3" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-4.PNG" alt="25-4" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-5.PNG" alt="25-5" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-6.PNG" alt="25-6" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-7.PNG" alt="25-7" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-8.PNG" alt="25-8" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-9.PNG" alt="25-9" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-10.PNG" alt="25-10" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-11.PNG" alt="25-11" />
+<img src="../../../../images/posts/2026/04/linkedlist/25-12.PNG" alt="25-12" /></p>
+
+<h2 id="由繁到简">由繁到简</h2>
+
+<p>无论是<code class="language-plaintext highlighter-rouge">k</code>个一组反转链表，还是反转某个区间的链表，最重要的需要确定：</p>
+
+<ol>
+  <li>从哪里开始？\(\to\)<code class="language-plaintext highlighter-rouge">newHead</code>在哪？</li>
+  <li>到哪里结束？\(\to\)<code class="language-plaintext highlighter-rouge">newHead-&gt;next-&gt;next</code>和<code class="language-plaintext highlighter-rouge">newHead-&gt;next</code>分别接谁？一般是<code class="language-plaintext highlighter-rouge">cur</code>和<code class="language-plaintext highlighter-rouge">pre</code>。</li>
+</ol>
+
+<p>明确这些，然后中间迭代一下，大概就是这样。</p>
+
+<h2 id="番外">番外</h2>
+
+<h3 id="leetcode-234-回文链表"><a href="https://leetcode.cn/problems/palindrome-linked-list/" target="_blank">LeetCode 234. 回文链表</a></h3>
+
+<p>给出一个链表头，判断是不是回文链表，比如：<code class="language-plaintext highlighter-rouge">1-&gt;2-&gt;2-&gt;1</code>是回文链表，<code class="language-plaintext highlighter-rouge">1-&gt;2</code>不是。首先，用快慢指针找到链表中点，从中点开始反转后半截的链表，分别得到原来的链表头<code class="language-plaintext highlighter-rouge">head</code>和从尾部开始的新链表头<code class="language-plaintext highlighter-rouge">head2</code>，逐一比较节点值。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+
+	<span class="n">Node</span><span class="p">()</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">findMiddle</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">fast</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+		<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">pre</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">isPalinfrome</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">findMiddle</span><span class="p">(</span><span class="n">head</span><span class="p">);</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">head2</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">mid</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">head2</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">!=</span> <span class="n">head2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">head2</span> <span class="o">=</span> <span class="n">head2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">))));</span>
+	<span class="c1">//Node* test = new Node(1, new Node(2));</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">isPalinfrome</span><span class="p">(</span><span class="n">test</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#algorithm" class="page__taxonomy-item" rel="tag">algorithm</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#leetcode" class="page__taxonomy-item" rel="tag">leetcode</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://theozmz.github.io/tags/#linkedlist" class="page__taxonomy-item" rel="tag">linkedlist</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://theozmz.github.io/posts/2026/04/quant/" class="pagination--pager" title="凉前辈教你量化金融！Exploration in Financial Computing and Quantitative Finance
+">Previous</a>
+    
+    
+      <a href="https://theozmz.github.io/posts/2026/05/dm/" class="pagination--pager" title="维什戴尔大人教你如何从死魂灵中挖掘数据: Data Mining
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://theozmz.github.io/images//posts/2026/05/dm/banner.png"
+          
+          alt="">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/05/dm/" rel="permalink">维什戴尔大人教你如何从死魂灵中挖掘数据: Data Mining
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-05-07T00:00:00+00:00">May 07, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Data Mining 期末复习及总结</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#data-mining" class="page__taxonomy-item" rel="tag">data mining</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://theozmz.github.io/images//posts/2026/04/quant/banner.png"
+          
+          alt="">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/quant/" rel="permalink">凉前辈教你量化金融！Exploration in Financial Computing and Quantitative Finance
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  231 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-19T00:00:00+00:00">April 19, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>金融计算期末复习+总结，应付考试集大成之作。（悲</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#finance" class="page__taxonomy-item" rel="tag">finance</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#quant" class="page__taxonomy-item" rel="tag">quant</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/agent/" rel="permalink">Prompt, Context, and Harness Engineering
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-19T00:00:00+00:00">April 19, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>（新坑：总结agent工程的演变，顺便总结一下一个agent的面试项目）</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#harness" class="page__taxonomy-item" rel="tag">harness</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#agent" class="page__taxonomy-item" rel="tag">agent</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#mas" class="page__taxonomy-item" rel="tag">MAS</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="display: flex; gap: 1.5em; align-items: flex-start;">
+    <!-- Banner/Teaser Image on the left -->
+    
+
+    <!-- Content area -->
+    <div style="flex: 1;">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://theozmz.github.io/posts/2026/04/rl/" rel="permalink">Reinforcement Learning From PPO to SAPO
+</a>
+      
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-04-18T00:00:00+00:00">April 18, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>（新坑：把毕设总结成面试项目，包括强化学习在LLM后训练中的应用）</p>
+
+</p>
+    
+    
+    <!-- Tags display -->
+    
+      <p class="page__taxonomy">
+        <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+        <span itemprop="keywords">
+        
+          <a href="https://theozmz.github.io/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a><span class="sep">, </span>
+        
+          <a href="https://theozmz.github.io/tags/#rl" class="page__taxonomy-item" rel="tag">rl</a>
+        
+        </span>
+      </p>
+    
+    
+    
+    </div>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<a href="/sitemap/">Sitemap</a>
+
+<!-- Support for MatJax -->
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Plotly -->
+<script defer src='https://cdnjs.cloudflare.com/ajax/libs/plotly.js/3.0.1/plotly.min.js'></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/theozmz"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://theozmz.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Zhao Mingze, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-05-07
+</div>
+
+      </footer>
+    </div>
+
+    <script type="module" src="https://theozmz.github.io/assets/js/main.min.js"></script>
+
+<script>
+  (function() {
+    function toggleTOC() {
+      const toc = document.getElementById('page-toc');
+      const icon = document.getElementById('toc-toggle-icon');
+
+      if (!toc || !icon) return;
+
+      if (toc.style.display === 'none') {
+        toc.style.display = 'block';
+        icon.innerHTML = '&#9660;';
+      } else {
+        toc.style.display = 'none';
+        icon.innerHTML = '&#9654;';
+      }
+    }
+
+    function initTOC() {
+      const tocWrapper = document.getElementById('page-toc-wrapper');
+      const tocList = document.getElementById('toc-list');
+      const headings = document.querySelectorAll('.page__content h2, .page__content h3, .page__content h4, .page__content h5, .page__content h6');
+
+      if (!tocWrapper || !tocList || headings.length === 0 || tocList.children.length > 0) return;
+
+      headings.forEach(function(heading) {
+        const headingText = heading.textContent.trim();
+        const headingId = heading.id;
+
+        if (!headingText || !headingId) return;
+
+        const item = document.createElement('li');
+        item.className = 'toc-item toc-level-' + heading.tagName.substring(1);
+
+        const link = document.createElement('a');
+        link.href = '#' + headingId;
+        link.className = 'toc-link';
+        link.textContent = headingText;
+
+        item.appendChild(link);
+        tocList.appendChild(item);
+      });
+
+      if (tocList.children.length === 0) return;
+
+      tocWrapper.style.display = 'block';
+
+      const tocLinks = tocList.querySelectorAll('.toc-link');
+      window.addEventListener('scroll', function() {
+        let current = '';
+
+        headings.forEach(function(heading) {
+          if (window.pageYOffset >= heading.offsetTop - 100) {
+            current = heading.getAttribute('id');
+          }
+        });
+
+        tocLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    window.toggleTOC = toggleTOC;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTOC);
+    } else {
+      initTOC();
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

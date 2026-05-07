@@ -1,0 +1,17 @@
+{% comment %}
+  Table of Contents generator for posts/pages
+  Markup only. TOC behavior is handled in assets/js/_main.js.
+{% endcomment %}
+
+{% if page.toc != false %}
+  <div id="page-toc-wrapper" class="page__toc-wrapper" style="display: none;">
+    <div class="page__toc-header" onclick="toggleTOC()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="page__toc-title">Table of Contents</h3>
+      <span id="toc-toggle-icon" style="font-size: 0.8em; transition: transform 0.3s ease;">&#9660;</span>
+    </div>
+
+    <nav id="page-toc" class="page__toc">
+      <ul id="toc-list" class="toc-list"></ul>
+    </nav>
+  </div>
+{% endif %}

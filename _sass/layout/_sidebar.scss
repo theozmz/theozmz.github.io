@@ -77,6 +77,144 @@
 }
 
 /*
+   Table of Contents (Left Sidebar)
+   ========================================================================== */
+
+.page__toc-wrapper {
+  margin-top: 1.5em;
+  margin-right: 1em;  /* 增加右边距 */
+  padding-top: 1.5em;
+  padding-right: 0.5em;  /* 右侧内边距 */
+  border-top: 1px solid var(--global-border-color);
+  
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.page__toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--global-border-color);
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 3px;
+  }
+}
+
+.page__toc-title {
+  margin: 0;
+  font-size: $type-size-6;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--global-text-color);
+}
+
+.page__toc {
+  /* 独立滚动容器 */
+  max-height: 200px;  /* 设置最大高度 */
+  overflow-y: auto;   /* 垂直方向自动滚动 */
+  overflow-x: hidden; /* 隐藏水平滚动条 */
+  
+  /* 自定义滚动条样式 */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--global-border-color);
+    border-radius: 3px;
+    
+    &:hover {
+      background: var(--global-text-color-light);
+    }
+  }
+  
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin: 0.3em 0;
+    
+    &.toc-level-2 {
+      margin-left: 0;
+      
+      .toc-link {
+        font-weight: 600;
+        font-size: $type-size-6;
+      }
+    }
+    
+    &.toc-level-3 {
+      margin-left: 1em;
+      
+      .toc-link {
+        font-size: $type-size-6;
+      }
+    }
+    
+    &.toc-level-4 {
+      margin-left: 2em;
+      
+      .toc-link {
+        font-size: $type-size-7;
+      }
+    }
+    
+    &.toc-level-5 {
+      margin-left: 3em;
+      
+      .toc-link {
+        font-size: $type-size-7;
+        opacity: 0.9;
+      }
+    }
+    
+    &.toc-level-6 {
+      margin-left: 4em;
+      
+      .toc-link {
+        font-size: $type-size-7;
+        opacity: 0.85;
+      }
+    }
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.3em 0.5em;
+    color: var(--global-text-color-light);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: var(--global-link-color-hover);
+      background: rgba(74, 158, 255, 0.1);
+      text-decoration: none;
+    }
+    
+    &.active {
+      color: var(--global-link-color);
+      background: rgba(74, 158, 255, 0.15);
+      font-weight: 600;
+    }
+  }
+}
+
+/*
    Author profile and links
    ========================================================================== */
 
