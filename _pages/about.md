@@ -35,6 +35,22 @@ I have been working at the perspectives of machine learning, harness engineering
 * **An LLM Agent for Reasoning and Decision-Making Based on PRMs**: This is my undergraduate thesis. The work lasts from Nov. 2024 to May. 2025. The research purpose is inspired by [ChatGPT-o1](https://openai.com/o1/){:target="_blank"}, which is popular at that time. The goal is to explore the reasoning ability improvement method behind [ChatGPT-o1](https://openai.com/o1/){:target="_blank"}. Several post-training methods, such as SFT, and several reinforcement learning methods, such as PPO and GRPO, are applied.
 
 
+## List of **Failures**
+
+> **What's this?** There's a Chinese proverb: "Failure is the mother of success." One must have accumulated a lot of failures before achieving goals. Also, in quantative finance, if one only considers assets that have survived until the end of the period, ignores those that have failed, she or he will overestimate the strategy performance, finally causing market loss. This is called the **[Survivorship Bias](/posts/2026/04/quant/#pitfalls){:target="_blank"}**. In my opinion, those failures are also valuable if we can learn from them. Thus, I list them here. :)
+
+### 2023
+
+### 2024
+
+### 2025
+
+### 2026
+
+(To be continued)
+
+
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 Hello again... You find it...
