@@ -2,6 +2,8 @@
 title: 'Hand-Written Transformer'
 date: 2025-12-25
 permalink: /posts/2025/12/transformer/
+header:
+  teaser: /posts/2025/12/transformer/banner.png
 tags:
   - transformer
   - machine learning
@@ -12,6 +14,10 @@ tags:
 
 （新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）
 
+
+![banner](../../../../images/posts/2025/12/transformer/banner.png)
+
+(Banner: Figure from [super study guide](https://superstudy.guide/transformers-large-language-models/){:target="_blank"}.)
 
 
 # Introduction
