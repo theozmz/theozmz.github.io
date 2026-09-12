@@ -1,0 +1,33 @@
+---
+title: Stanford CS336 2026 Spring - 3. Transformer
+date: 2026-08-07
+permalink: /posts/2026/08/cs336-3/
+header:
+  teaser: /posts/2026/08/cs336/banner.png
+tags:
+  - LLM
+  - research
+  - CS336
+---
+
+
+Transformer
+
+[![Static Badge](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/theozmz/Stanford-CS336-Spring-2026.git){:target="_blank"} 👉[TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories){:target="_blank"}👈
+
+
+**Hand-typing, NO AI!!!**
+
+
+## Preliminary
+
+
+
+## Code
+
+Only show core functions, full code see [![Static Badge](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/theozmz/Stanford-CS336-Spring-2026/blob/main/assignment1-basics/cs336_basics/tokenizer.py){:target="_blank"}.
+
+
+## Train
+
+

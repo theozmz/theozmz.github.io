@@ -12,8 +12,10 @@ tags:
   - papers
 ---
 
-（新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释）
 
+This post is deprecated. Please refer to this latest one 👉[Post](/posts/2026/08/cs336-0/){:target="_blank"}👈.
+
+<!-- （新坑：手撕变形金刚。大模型萌新探索LLM的第一步，参考GitHub上一些repo的实现，加入自己的理解和注释） -->
 
 ![banner](../../../../images/posts/2025/12/transformer/banner.png)
 

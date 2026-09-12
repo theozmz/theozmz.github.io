@@ -8,7 +8,7 @@ tags:
 ---
 
 
-（新坑：Agent面试包装项目）
+The final project of my master program. Unfortunately, I got a B+ in the project.
 
-
+This is an AI agent platform that integrates resume analysis, job recommendations, customized learning plans, progress tracking, and simulated interviews. We implemented the whole system in 3 modules: management system, user system, and an online judge system. The programming language is Java and Springboot for the backend, Vue3 for the frontend, and Python for the agent orchastration. I mainly implemented the online judge part.
 
